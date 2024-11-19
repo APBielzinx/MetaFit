@@ -28,5 +28,31 @@ return email;
 public String getSenha(){ 
 return nome;
 }
+public int getTipo(){
+    return tipo;
+}
+
+
+// Métodos modificadores
+public void setNome(String nome) {
+    this.nome = nome;
+}
+
+public void setEmail(String email) {
+    this.email = email;
+}
+
+public void setSenha(String senha) {
+    this.senha = senha;
+}
+
+public void setTipo(int tipo){
+    this.tipo = tipo;
+}
+ //metodo getDados
+ public String getDados() {
+    return "Nome: " + nome + "Email: " + email + "Senha: " + senha + "Tipo:" + tipo;
+
+     }
 
 }
