@@ -26,7 +26,7 @@ public class ProfessorDao {
 
         professors.add(professor);
         JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!\n"+professor.getDados(),"Professor", JOptionPane.INFORMATION_MESSAGE);
-        return professors.getFirst();
+        return professor;
     }
 
 

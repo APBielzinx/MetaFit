@@ -1,5 +1,6 @@
 package main.controller;
 
+import main.model.Aluno;
 import main.model.Professor;
 import main.model.Treino;
 
@@ -24,8 +25,6 @@ public class Validador {
             String email = professor.getEmail().toLowerCase();
             if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
                 erros.append("Email inválido! Deve conter um formato válido, como exemplo@dominio.com\n");
-            } else {
-                professor.setEmail(email);
             }
         }
 
@@ -43,6 +42,54 @@ public class Validador {
 
         // Exibir erros, se existirem
         if (!erros.isEmpty()) {
+            JOptionPane.showMessageDialog(null, erros.toString(),"Erro", JOptionPane.ERROR_MESSAGE);
+            return false; // Indica que a validação falhou
+        }
+
+        return true;
+    }
+
+    public boolean validarAluno(Aluno aluno)
+    {
+        StringBuilder erros = new StringBuilder();
+
+        //Validar nome
+        if(aluno.getNome() == null || aluno.getNome().trim().isEmpty())
+        {
+            erros.append("Nome incorreto!\n");
+        }
+
+        //Validar email
+        if(aluno.getEmail() == null || aluno.getEmail().trim().isEmpty())
+        {
+            erros.append("Email incorreto");
+        }
+        else
+        {
+            String email = aluno.getEmail().toLowerCase();
+            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) 
+            {
+                erros.append("Email inválido! Deve conter um formato válido, como exemplo@dominio.com\n");
+            }
+        }
+
+        //Validar Senha
+        if(aluno.getSenha() == null || aluno.getSenha().isEmpty())
+        {
+            erros.append("Senha incorreta!\n");
+        }
+        else if(aluno.getSenha().length() < 8)
+        {
+            erros.append("Senha muito curta! Deve ter no mínimo 8 caracteres");
+        }
+
+        //Validar idade
+        if(aluno.getIdade() < 10 || aluno.getIdade() > 130)
+        {
+            erros.append("Idade inválida.");
+        }
+        if (!erros.isEmpty()) 
+        {
             JOptionPane.showMessageDialog(null, erros.toString(),"Erro", JOptionPane.ERROR_MESSAGE);
             return false; // Indica que a validação falhou
         }
