@@ -5,7 +5,6 @@ package main.model;
 //Atributos
 public class Usuario
 {
-    private String getEmail;
     private String nome;
     private String email;
     private String senha;
