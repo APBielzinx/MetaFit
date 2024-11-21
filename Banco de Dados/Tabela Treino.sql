@@ -1,6 +1,6 @@
 create table Treino(
 idTreino CHAR(36) PRIMARY KEY,
-idProfessor CHAR(36) not null,
+idProfessor CHAR(36),
 nome VARCHAR(100) not null,
 especialidades ENUM(
 'Hipertrofia Muscular',
