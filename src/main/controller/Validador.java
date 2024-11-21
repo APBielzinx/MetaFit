@@ -109,10 +109,9 @@ public class Validador {
         if (treino.getEspecialidadeTreino() == null || treino.getEspecialidadeTreino().isEmpty()) {
             erros.append("Especialidade incorreta!\n");
         }
-        if (treino.getDuracaoTreino() == LocalTime.of(0,0,0) || treino.getDuracaoTreino() == null) {
-            erros.append("Duracao incorreta!\n");
+        if (treino.getDescricaoTreino() == null || treino.getDescricaoTreino().trim().isEmpty()) {
+            erros.append("Descricao incorreta!\n");
         }
-
         if (!erros.isEmpty()) {
             JOptionPane.showMessageDialog(null, erros.toString(),"Erro", JOptionPane.ERROR_MESSAGE);
             return false;

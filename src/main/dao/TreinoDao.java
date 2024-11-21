@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TreinoDao {
 
@@ -15,9 +16,9 @@ public class TreinoDao {
     Validador validador = new Validador();
     ArrayList<Treino> treinos = new ArrayList<>();
 
-    public Treino criar(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, LocalTime duracaoTreino) {
+    public Treino criar(String id, String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, String instrucoes) {
 
-        Treino treino = new Treino( nomeTreino, descricaoTreino,  especialidadeTreino,  professor,  duracaoTreino);
+        Treino treino = new Treino(UUID.randomUUID().toString(), nomeTreino, descricaoTreino,  especialidadeTreino,  professor, instrucoes);
 
         if (!validador.validarTreino(treino)){
             //continua na mesma tela e usuario altera as informações erradas

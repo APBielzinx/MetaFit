@@ -6,6 +6,7 @@ import main.model.Professor;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class ProfessorDao {
@@ -15,9 +16,9 @@ public class ProfessorDao {
 
     Validador validator = new Validador();
 
-    public Professor fazerCadastro(String nome, String email, String senha, int tipo, List<String>especialidades) {
+    public Professor fazerCadastro(String id, String nome, String email, String senha, int tipo, List<String>especialidades) {
 
-        Professor professor = new Professor(nome, email, senha, tipo, especialidades);
+        Professor professor = new Professor(UUID.randomUUID().toString(), nome, email, senha, tipo, especialidades);
 
         if (!validator.validarProfessor(professor)){
             //continua na mesma tela e usuario altera as informações erradas

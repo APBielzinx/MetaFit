@@ -1,25 +1,32 @@
 package main.model;
 
-import java.time.LocalTime;
+
 import java.util.List;
 
 public class Treino {
 
+    private String idTreino;
     private String nomeTreino;
     private String descricaoTreino;
     private List<String> especialidadeTreino;
     private Professor professor;
-    
+    private String instucoes;
 
-    public Treino(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor) {
+
+    public Treino(String idTreino, String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, String instucoes) {
+       this.idTreino = idTreino;
         this.nomeTreino = nomeTreino;
         this.descricaoTreino = descricaoTreino;
         this.especialidadeTreino = especialidadeTreino;
         this.professor = professor;
-      
+        this.instucoes = instucoes;
     }
 
     public Treino() {}
+
+    public String getId() {
+        return idTreino;
+    }
 
     public String getNomeTreino() {
         return nomeTreino;
@@ -53,12 +60,16 @@ public class Treino {
         this.professor = professor;
     }
 
-  
+    public String getInstucoes() {
+        return instucoes;
+    }
 
-    
+    public void setInstucoes(String instucoes) {
+        this.instucoes = instucoes;
+    }
 
     public String getDados(){
-        return "nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + professor;
+        return "Id:"+idTreino+"nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + professor + "instrucoes" + instucoes;
     }
 
 }

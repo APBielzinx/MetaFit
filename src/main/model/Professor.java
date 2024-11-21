@@ -7,8 +7,8 @@ public class Professor extends Usuario{
     private List<String>especialidades;
     private List<Treino> treinos;
 
-    public Professor(String nome, String email, String senha, int tipo, List<String>especialidades) {
-        super(nome, email, senha, tipo);
+    public Professor(String id, String nome, String email, String senha, int tipo, List<String>especialidades) {
+        super(id, nome, email, senha, tipo);
         this.especialidades = especialidades;
     }
 

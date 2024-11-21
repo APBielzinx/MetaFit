@@ -5,15 +5,15 @@ package main.model;
 //Atributos
 public class Usuario
 {
-    private int id;
+    private String idUsuario;
     private String nome;
     private String email;
     private String senha;
     private int tipo;
 
     //Construtor
-    public Usuario(int id, String nome, String email, String senha, int tipo){
-        this.id = id;
+    public Usuario(String id, String nome, String email, String senha, int tipo){
+        this.idUsuario = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -21,8 +21,8 @@ public class Usuario
     }
 
     //Métodos de acesso
-    public int getId(){
-        return id;
+    public String getId(){
+        return idUsuario;
     }
     public String getNome(){
         return nome;
@@ -56,7 +56,7 @@ public class Usuario
     }
     //metodo getDados
     public String getDados() {
-        return "Nome: " + nome + "Email: " + email + "Senha: " + senha + "Tipo:" + tipo + "ID:" + id;
+        return "Nome: " + nome + "Email: " + email + "Senha: " + senha + "Tipo:" + tipo + "ID:" + idUsuario;
 
     }
 }
