@@ -59,5 +59,4 @@ public class Usuario
         return "Nome: " + nome + "Email: " + email + "Senha: " + senha + "Tipo:" + tipo + "ID:" + id;
 
     }
-
 }

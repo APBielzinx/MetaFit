@@ -7,10 +7,10 @@ public class Aluno extends Usuario
     private String genero;
     private double pesoMeta;
 
-    public Aluno(String nome, String email, String senha, 
+    public Aluno(int id, String nome, String email, String senha, 
     int tipo, int idade, String genero)
     {
-        super(nome, email, senha, tipo);
+        super(id, nome, email, senha, tipo);
         this.idade = idade;
         this.genero = genero;
     }

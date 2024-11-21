@@ -13,9 +13,9 @@ public class AlunoDao
 
     Validador validador = new Validador();
 
-    public Aluno fazerCadastro(String nome, String email, String senha, int tipo, int idade, String genero)
+    public Aluno fazerCadastro(int id, String nome, String email, String senha, int tipo, int idade, String genero)
     {
-        Aluno aluno = new Aluno(nome, email, senha, tipo, idade, genero);
+        Aluno aluno = new Aluno(id, nome, email, senha, tipo, idade, genero);
         if(!validador.validarAluno(aluno))
         {
             return null;

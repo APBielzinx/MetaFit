@@ -16,7 +16,7 @@ public class Main {
     {
         AlunoDao alunoDao = new AlunoDao();
 
-        alunoDao.fazerCadastro("Felipe", "petrassifelipe@gmail.com", "12345678910",
+        alunoDao.fazerCadastro(165195165, "Felipe", "petrassifelipe@gmail.com", "12345678910",
         1, 24, "Eme");
     }
 }
