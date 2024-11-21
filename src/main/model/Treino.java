@@ -11,7 +11,7 @@ public class Treino {
     private Professor professor;
     
 
-    public Treino(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, LocalTime duracaoTreino) {
+    public Treino(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor) {
         this.nomeTreino = nomeTreino;
         this.descricaoTreino = descricaoTreino;
         this.especialidadeTreino = especialidadeTreino;
