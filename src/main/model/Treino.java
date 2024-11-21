@@ -9,14 +9,14 @@ public class Treino {
     private String descricaoTreino;
     private List<String> especialidadeTreino;
     private Professor professor;
-    private LocalTime duracaoTreino;
+    
 
     public Treino(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, LocalTime duracaoTreino) {
         this.nomeTreino = nomeTreino;
         this.descricaoTreino = descricaoTreino;
         this.especialidadeTreino = especialidadeTreino;
         this.professor = professor;
-        this.duracaoTreino = duracaoTreino;
+      
     }
 
     public Treino() {}
@@ -53,16 +53,12 @@ public class Treino {
         this.professor = professor;
     }
 
-    public LocalTime getDuracaoTreino() {
-        return duracaoTreino;
-    }
+  
 
-    public void setDuracaoTreino(LocalTime duracaoTreino) {
-        this.duracaoTreino = duracaoTreino;
-    }
+    
 
     public String getDados(){
-        return "nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + professor + "duracao" + duracaoTreino;
+        return "nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + professor;
     }
 
 }
