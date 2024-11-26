@@ -1,22 +1,16 @@
 package main;
 
-import main.controller.Validador;
-import main.dao.AlunoDao;
-import main.dao.ProfessorDao;
-import main.dao.TreinoDao;
-import main.model.Professor;
-import main.model.Treino;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import main.controller.Validador;
+import main.dao.UsuarioDao;
+
+
 
 public class Main {
     public static void main(String[] args) 
     {
-        AlunoDao alunoDao = new AlunoDao();
-
-        alunoDao.fazerCadastro(165195165, "Felipe", "petrassifelipe@gmail.com", "12345678910",
-        1, 24, "Eme");
+        Validador validador = new Validador();
+        UsuarioDao usuarioDao = new UsuarioDao();
+        usuarioDao.cadastrarUsuario("Gabriel","gabriel@gmail.com","010203cd",2);
     }
 }

@@ -1,42 +1,53 @@
 package main.dao;
+
 import main.model.*;
-import java.util.ArrayList;
+
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.UUID;
+
 
 public class UsuarioDao {
- 
-    // Criando arraylist
-    private ArrayList<Usuario> usuarios;
 
-    // Construtor
-    private UsuarioDao() {
-        usuarios = new ArrayList<>();
-    }
+    Connection conn = ConnFactory.getConn();
 
-    // Add usuário
-    public void adicionarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
-    }
 
-    // Método de login
-    public String login(String email, String senha) {
-        //Identificação
-        for (Usuario usuario : usuarios) 
-        {
-            // Verifica se o email e a senha batem
-            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
-                //Verificando acesso
-                if (usuario.getTipo() == 1) {
-                    return "Login bem-sucedido! Olá, professor";
-                } else if (usuario.getTipo() == 2) {
-                    return "Login bem-sucedido! Olá, aluno!";
-                }
-            }
+
+    public void cadastrarUsuario(String nome, String email, String senha, int tipo) {
+
+        String sql = "INSERT INTO usuario (idUsuario,nome,email,senha,tipo) VALUES (?,?,?,?,?)";
+
+        PreparedStatement stmt = null;
+
+        try {
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, UUID.randomUUID().toString()); // gera um UUID aleatorio e ja o convete para String para fazer o insert
+            stmt.setString(2, nome);
+            stmt.setString(3, email);
+            stmt.setString(4, senha);
+            stmt.setInt(5, tipo);
+            stmt.executeUpdate();
+
+        }  catch(SQLException e)
+        {   try
+        {   conn.rollback();
         }
-        // Caso o login não seja bem-sucedido
-        return "Login falhou! Usuário não cadastrado.";
+        catch(SQLException ex)
+        {   System.out.println("Erro ao incluir os dados" + ex.toString());
+        }
+        }
+        finally
+        {   ConnFactory.closeConn(conn, stmt);
+        }
+
+        JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!","Usuario", JOptionPane.INFORMATION_MESSAGE);
+
     }
+
+
 }
 
 
-//Tipo 1 Login Professor
-//Tipo 2 Login Aluno
