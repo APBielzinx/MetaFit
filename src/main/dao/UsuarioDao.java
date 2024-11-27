@@ -15,16 +15,16 @@ public class UsuarioDao {
 
 
 
-    public void cadastrarUsuario(String nome, String email, String senha, int tipo) {
+    public String cadastrarUsuario(String nome, String email, String senha, int tipo) {
 
         String sql = "INSERT INTO usuario (idUsuario,nome,email,senha,tipo) VALUES (?,?,?,?,?)";
 
         PreparedStatement stmt = null;
-
+        String id = UUID.randomUUID().toString();
         try {
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, UUID.randomUUID().toString()); // gera um UUID aleatorio e ja o convete para String para fazer o insert
+            stmt.setString(1, id); // gera um UUID aleatorio e ja o convete para String para fazer o insert
             stmt.setString(2, nome);
             stmt.setString(3, email);
             stmt.setString(4, senha);
@@ -44,6 +44,7 @@ public class UsuarioDao {
         }
 
         JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!","Usuario", JOptionPane.INFORMATION_MESSAGE);
+        return id;
 
     }
 
