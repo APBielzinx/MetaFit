@@ -42,8 +42,6 @@ public class UsuarioDao {
         finally
         {   ConnFactory.closeConn(conn, stmt);
         }
-
-        JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!","Usuario", JOptionPane.INFORMATION_MESSAGE);
         return id;
 
     }

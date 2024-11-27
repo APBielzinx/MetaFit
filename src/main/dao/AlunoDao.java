@@ -43,8 +43,6 @@ public class AlunoDao
     } finally {
         ConnFactory.closeConn(conn, stmt);
     }
-
-    JOptionPane.showMessageDialog(null, "Seja bem-vindo!");
  }
 }
 

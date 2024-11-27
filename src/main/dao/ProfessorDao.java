@@ -4,32 +4,48 @@ import main.controller.Validador;
 import main.model.Professor;
 
 import javax.swing.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
-public class ProfessorDao {
+public class ProfessorDao 
+{
+    Connection conn = ConnFactory.getConn();
+    public void cadastrarProfesssor(String idUsuario, ArrayList<String> especialidades) 
+    {
+        String sql = "INSERT INTO Professor(idProfessor, idUsuario, especialidades) VALUES (?, ?, ?)";
+        PreparedStatement stmt = null;
 
+        try 
+        {
+            stmt = conn.prepareStatement(sql);
 
-    ArrayList<Professor> professors = new ArrayList<>();
-
-    Validador validator = new Validador();
-
-    public Professor fazerCadastro(String id, String nome, String email, String senha, int tipo, List<String>especialidades) {
-
-        Professor professor = new Professor(UUID.randomUUID().toString(), nome, email, senha, tipo, especialidades);
-
-        if (!validator.validarProfessor(professor)){
-            //continua na mesma tela e usuario altera as informações erradas
-            return null;
+            
+            stmt.setString(1, UUID.randomUUID().toString()); 
+            stmt.setString(2, idUsuario);
+            stmt.setString(3, String.join(",", especialidades));
+            stmt.executeUpdate();
+        } 
+        catch (SQLException e) 
+        {
+            try 
+            {
+                conn.rollback();
+            } 
+            catch (SQLException ex) 
+            {
+                System.out.println("Erro ao realizar o rollback: " + ex.toString());
+            }
+            System.out.println("Erro ao incluir os dados: " + e.toString());
+        } 
+        finally 
+        {
+            ConnFactory.closeConn(conn, stmt);
         }
-
-        professors.add(professor);
-        JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!\n"+professor.getDados(),"Professor", JOptionPane.INFORMATION_MESSAGE);
-        return professor;
     }
-
-
-
 }
