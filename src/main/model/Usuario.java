@@ -20,6 +20,13 @@ public class Usuario
         this.tipo = tipo;
     }
 
+    public Usuario(String nome, String email, String senha, int tipo){
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipo = tipo;
+    }
+
     //Métodos de acesso
     public String getId(){
         return idUsuario;

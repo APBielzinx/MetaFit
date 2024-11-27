@@ -8,9 +8,16 @@ public class Aluno extends Usuario
     private double pesoMeta;
 
     public Aluno(String id, String nome, String email, String senha,
-    int tipo, int idade, String genero)
+    int tipo, int idade, String genero, double peso, double pesoMeta)
     {
         super(id, nome, email, senha, tipo);
+        this.idade = idade;
+        this.genero = genero;
+    }
+    public Aluno(String nome, String email, String senha,
+                 int tipo, int idade, String genero, double peso, double pesoMeta)
+    {
+        super(nome, email, senha, tipo);
         this.idade = idade;
         this.genero = genero;
     }
@@ -23,16 +30,8 @@ public class Aluno extends Usuario
     {
         return peso;
     }
-    public String getGenero() 
-    {
-        if(genero.equals("Masculino"))
-        {
-            return "Masculino";
-        }
-        else
-        {
-            return "Feminino";
-        }
+    public String getGenero() {
+        return genero;
     }
     public double getPesoMeta()
     {
@@ -56,7 +55,8 @@ public class Aluno extends Usuario
         this.pesoMeta = pesoMeta;
     }
 
-    public String getDados()
+    @Override
+    public String toString()
     {
         return "\nNome: " + super.getNome() + "\nEmail: " + super.getEmail() 
         + "\nIdade: " + idade + "\nGênero: " + genero;

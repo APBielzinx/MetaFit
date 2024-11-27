@@ -1,25 +1,18 @@
 package main;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import main.controller.AlunoController;
 
-import main.controller.Validador;
-import main.dao.AlunoDao;
-import main.dao.ProfessorDao;
-import main.dao.UsuarioDao;
+import main.model.Aluno;
 
 
 
 public class Main {
     public static void main(String[] args) 
     {
-        Validador validador = new Validador();
-        UsuarioDao usuarioDao = new UsuarioDao();
-        String idProfessor = usuarioDao.cadastrarUsuario("Prof", "aquivaiemail@gmail.com", "Qualquercoisa", 1);
-        ProfessorDao professorDao = new ProfessorDao();
-        ArrayList<String> especialidades = new ArrayList<>(Arrays.asList("Hipertrofia", "Emagrecimento"));
-        professorDao.cadastrarProfesssor(idProfessor, especialidades );
-
+        AlunoController alunoController = new AlunoController();
+        //alunoController.cadastrarAluno(new Aluno("Gabriel","g@gmail.com","12345678",1,20,"M",40,50));
+       // alunoController.atualizarAluno(new Aluno("439e2863-83c2-4bad-a068-ec1bddbe2528","Gabriel","ga@gmail.com","12345678",1,25,"M",40,50));
+        alunoController.excluirAluno("439e2863-83c2-4bad-a068-ec1bddbe2528");
     }
 }
