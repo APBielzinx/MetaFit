@@ -105,7 +105,7 @@ public class AlunoDao
         }
     }
 
-    public void deletarAluno(String idUsuario) {
+    public void excluirAluno(String idUsuario) {
         String sql = "DELETE FROM Aluno WHERE idUsuario = ?";
         PreparedStatement stmt = null;
 
@@ -114,7 +114,7 @@ public class AlunoDao
             stmt.setString(1, idUsuario);
             stmt.executeUpdate();
 
-            System.out.println("Dados do aluno deletados com sucesso!");
+            System.out.println("Dados do aluno excluídos com sucesso!");
 
         }  catch(SQLException e) {
             try {

@@ -47,8 +47,8 @@ public class AlunoController implements UsuarioController{
     @Override
     public void excluir(String id) {
         if (id != null && !id.isEmpty()){
-            alunoDao.deletarAluno(id);
-            usuarioDao.deletarUsuario(id);
+            alunoDao.excluirAluno(id);
+            usuarioDao.excluirUsuario(id);
         }
     }
 

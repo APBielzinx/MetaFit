@@ -70,7 +70,7 @@ public class UsuarioDao {
         }
     }
 
-    public void deletarUsuario(String idUsuario) {
+    public void excluirUsuario(String idUsuario) {
         String sql = "DELETE FROM Usuario WHERE idUsuario = ?";
         PreparedStatement stmt = null;
 
@@ -79,7 +79,7 @@ public class UsuarioDao {
             stmt.setString(1, idUsuario);
             stmt.executeUpdate();
 
-            System.out.println("Usuário deletado com sucesso!");
+            System.out.println("Usuário excluído com sucesso!");
 
         }  catch(SQLException e) {
             try {
