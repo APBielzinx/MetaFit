@@ -1,15 +1,9 @@
 package main.dao;
 
-import main.controller.Validador;
-import main.model.Professor;
-
-import javax.swing.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 

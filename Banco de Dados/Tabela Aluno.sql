@@ -9,3 +9,5 @@ FOREIGN KEY (idUsuario)
 REFERENCES Usuario(idUsuario) ON DELETE CASCADE
 ) ENGINE InnoDB;
 describe Aluno;
+
+select * from aluno;

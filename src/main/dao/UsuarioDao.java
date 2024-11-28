@@ -1,10 +1,11 @@
 package main.dao;
 
-import main.model.*;
+import main.controller.utils.CriptografarSenha;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -91,6 +92,41 @@ public class UsuarioDao {
         finally {
             ConnFactory.closeConn(conn, stmt);
         }
+    }
+
+    public Object fazerLogin(String email, String senha) {
+        conn = ConnFactory.getConn();
+        String sql = "SELECT * FROM Usuario WHERE email = ? and senha = ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, CriptografarSenha.criptografarSenha(senha));
+            rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                if (rs.getString("email").equals(email) && rs.getString("senha").equals(CriptografarSenha.criptografarSenha(senha))) {
+                    if (rs.getInt("tipo") == 1) {
+                       ProfessorDao profDao = new ProfessorDao();
+
+                    } else {
+                        AlunoDao alunoDao = new AlunoDao();
+                       return alunoDao.buscarAluno(rs.getString("idUsuario"));
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Usuario não encontado");
+                }
+            }
+
+        }catch(SQLException ex) {
+            System.out.println("Erro ao consultar os dados" + ex);
+        }
+        finally {
+            ConnFactory.closeConn(conn, stmt);
+        }
+        return null;
     }
 
 

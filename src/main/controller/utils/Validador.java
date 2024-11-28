@@ -1,11 +1,10 @@
-package main.controller;
+package main.controller.utils;
 
 import main.model.Aluno;
 import main.model.Professor;
 import main.model.Treino;
 
 import javax.swing.*;
-import java.time.LocalTime;
 
 public class Validador {
 

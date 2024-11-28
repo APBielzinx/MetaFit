@@ -1,11 +1,10 @@
 package main.dao;
 
-import main.controller.Validador;
+import main.controller.utils.Validador;
 import main.model.Professor;
 import main.model.Treino;
 
 import javax.swing.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

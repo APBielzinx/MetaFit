@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
-import main.controller.Validador;
 import main.model.Aluno;
 
 public class AlunoDao
