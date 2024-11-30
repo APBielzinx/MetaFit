@@ -5,3 +5,5 @@ PRIMARY KEY (idAluno, idTreino),
 FOREIGN KEY (idAluno) REFERENCES Aluno(idAluno) ON DELETE CASCADE,
 FOREIGN KEY (idTreino) REFERENCES Treino(idTreino) ON DELETE CASCADE
 );
+
+drop table Aluno_Treino;

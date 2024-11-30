@@ -7,3 +7,5 @@ REFERENCES Usuario(idUsuario) ON DELETE CASCADE
 ) ENGINE InnoDB;
 describe Professor;
 drop table Professor;
+
+select * from professor;
