@@ -1,9 +1,6 @@
 package main.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,18 +27,22 @@ public class ProfessorDao
             stmt.setString(3, String.join(",", especialidades));
             stmt.executeUpdate();
         } 
-        catch (SQLException e) 
+        catch (SQLIntegrityConstraintViolationException e)
         {
-            try 
+            JOptionPane.showMessageDialog(null, "Este enail já foi cadastrado utilize um diferente");
+
+
+        } catch (SQLException e ){
+            try
             {
                 conn.rollback();
-            } 
-            catch (SQLException ex) 
+            }
+            catch (SQLException ex)
             {
                 System.out.println("Erro ao realizar o rollback: " + ex.toString());
             }
             System.out.println("Erro ao incluir os dados: " + e.toString());
-        } 
+        }
         finally 
         {
             ConnFactory.closeConn(conn, stmt);
@@ -51,10 +52,10 @@ public class ProfessorDao
     public Professor buscarProfessor(String idUsuario)
     {
         conn = ConnFactory.getConn();
-        String sqlSelect = "SELECT u.idUsuario, u.nome, u.email, u.senha, u.tipo, p.especialidades FROM Usuario u JOIN Professor a ON u.idUsuario = p.idUsuario WHERE u.idUsuario = ?";
+        String sqlSelect = "SELECT u.idUsuario, u.nome, u.email, u.senha, u.tipo, p.especialidades FROM Usuario u JOIN Professor p ON u.idUsuario = p.idUsuario WHERE u.idUsuario = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        System.out.println("a");
         try
         {   
             stmt = conn.prepareStatement(sqlSelect);
@@ -91,19 +92,17 @@ public class ProfessorDao
         return null;
     } 
 
-    public void atualizarProfessor(String idUsuario, String nome, String email, String senha, List<String> especialidades)
+    public void atualizarProfessor(String idUsuario, List<String> especialidades)
     {   
-        String   sqlUpdate = "UPDATE Professor SET nome = ?, email = ?, senha = ?, especialidades = ? WHERE idUsuario = ?";
+        String   sqlUpdate = "UPDATE Professor SET especialidades = ? WHERE idUsuario = ?";
         conn = ConnFactory.getConn();
         PreparedStatement stmt = null;
 
         try
         {   
             stmt = conn.prepareStatement(sqlUpdate);
-            stmt.setString(1, nome);
-            stmt.setString(2, email);
-            stmt.setString(3, senha);
-            stmt.setString(3, String.join(",", especialidades));
+            stmt.setString(1, String.join(",", especialidades));
+            stmt.setString(2, idUsuario);
             stmt.executeUpdate();
         }
         catch(SQLException e)

@@ -5,6 +5,7 @@ import main.controller.utils.Validador;
 import main.dao.AlunoDao;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
+import main.model.Professor;
 
 import javax.swing.*;
 
@@ -54,7 +55,7 @@ public class AlunoController implements UsuarioController{
 
     @Override
     public Aluno fazerLogin(String email, String senha) {
-    if (usuarioDao.fazerLogin(email,senha).getClass().equals(Aluno.class)){
+    if (usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class)){
         //Direcionar para tela home do usuario
         Aluno aluno = (Aluno) usuarioDao.fazerLogin(email,senha);
         JOptionPane.showMessageDialog(null,"Seja bem vindo! "+aluno.getNome());

@@ -22,7 +22,7 @@ public class ProfessorController implements UsuarioController
             String idUsuario = usuarioDao.cadastrarUsuario(professor.getNome(), professor.getEmail(),
             senhaCriptografada, professor.getTipo());
             professorDao.cadastrarProfesssor(idUsuario, professor.getEspecialidades());
-            buscar(idUsuario).toString();
+            buscar(idUsuario);
         }
     }
 
@@ -46,8 +46,7 @@ public class ProfessorController implements UsuarioController
             {
             usuarioDao.atualizarUsuario(professor.getId(), professor.getNome(), professor.getEmail(),
             professor.getSenha(), professor.getTipo());
-            professorDao.atualizarProfessor(professor.getId(), professor.getNome(), professor.getEmail(),
-            professor.getSenha(),professor.getEspecialidades());
+            professorDao.atualizarProfessor(professor.getId(),professor.getEspecialidades());
             }
         }
         
@@ -64,15 +63,12 @@ public class ProfessorController implements UsuarioController
 
     public Professor fazerLogin(String email, String senha)
     {
-        if(usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class))
+        if(usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class))
         {
             Professor professor = (Professor) usuarioDao.fazerLogin(email, senha);
-            JOptionPane.showMessageDialog(null, "Seja bem vindo!" + professor.getNome());
+            JOptionPane.showMessageDialog(null, "Seja bem vindo! " + professor.getNome());
             return professor;
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 }

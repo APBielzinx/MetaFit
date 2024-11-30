@@ -12,6 +12,10 @@ public class Professor extends Usuario{
         this.especialidades = especialidades;
     }
 
+    public Professor(String nome, String email, String senha, int tipo, List<String>especialidades) {
+        super(nome, email, senha, tipo);
+        this.especialidades = especialidades;
+    }
 
 
     public List<String> getEspecialidades() {
@@ -31,7 +35,7 @@ public class Professor extends Usuario{
     }
 
     @Override
-    public String getDados() {
+    public String toString() {
         return "Nome: " + super.getNome() + " Email: " + super.getEmail() + " Senha: "
                 + super.getSenha() + "\n Tipo:" + super.getTipo() + " Especialidades: "+especialidades +" Treinos: "+treinos;
 

@@ -56,7 +56,7 @@ public class UsuarioDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, email);
-            stmt.setString(3, senha);
+            stmt.setString(3, CriptografarSenha.criptografarSenha(senha));
             stmt.setInt(4, tipo);
             stmt.setString(5, idUsuario);
             stmt.executeUpdate();
@@ -110,14 +110,18 @@ public class UsuarioDao {
                 if (rs.getString("email").equals(email) && rs.getString("senha").equals(CriptografarSenha.criptografarSenha(senha))) {
                     if (rs.getInt("tipo") == 1) {
                        ProfessorDao profDao = new ProfessorDao();
-
+                        return profDao.buscarProfessor((rs.getString("idUsuario")));
                     } else {
                         AlunoDao alunoDao = new AlunoDao();
                        return alunoDao.buscarAluno(rs.getString("idUsuario"));
                     }
                 }else {
-                    JOptionPane.showMessageDialog(null, "Usuario não encontado");
+                    JOptionPane.showMessageDialog(null, "email ou senha invalido");
+
                 }
+            }else {
+                JOptionPane.showMessageDialog(null, "Usuario não encontado");
+
             }
 
         }catch(SQLException ex) {
