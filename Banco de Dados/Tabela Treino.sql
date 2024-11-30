@@ -10,3 +10,5 @@ REFERENCES Professor(idProfessor) ON DELETE SET NULL
 ) ENGINE InnoDB;
 describe Treino;
 drop table Treino;
+
+select * from treino

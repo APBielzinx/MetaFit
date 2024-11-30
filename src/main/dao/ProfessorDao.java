@@ -29,7 +29,7 @@ public class ProfessorDao
         } 
         catch (SQLIntegrityConstraintViolationException e)
         {
-            JOptionPane.showMessageDialog(null, "Este enail já foi cadastrado utilize um diferente");
+            JOptionPane.showMessageDialog(null, "Este email já foi cadastrado utilize um diferente");
 
 
         } catch (SQLException e ){
@@ -55,7 +55,6 @@ public class ProfessorDao
         String sqlSelect = "SELECT u.idUsuario, u.nome, u.email, u.senha, u.tipo, p.especialidades FROM Usuario u JOIN Professor p ON u.idUsuario = p.idUsuario WHERE u.idUsuario = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        System.out.println("a");
         try
         {   
             stmt = conn.prepareStatement(sqlSelect);

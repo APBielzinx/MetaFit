@@ -1,63 +1,161 @@
 package main.dao;
 
-import main.controller.utils.Validador;
-import main.model.Professor;
-import main.model.Treino;
-
-import javax.swing.*;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import main.model.Treino;
+
 public class TreinoDao {
 
+    private  Connection conn = ConnFactory.getConn();
 
-    Validador validador = new Validador();
-    ArrayList<Treino> treinos = new ArrayList<>();
+    public void cadastrarTreino(Treino treino) {
+        conn = ConnFactory.getConn();
+        String sqlInsert = "INSERT INTO Treino (idTreino, nome, descricao, especialidades, idProfessor, instrucoes) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = null;
 
-    public Treino criar(String id, String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, String instrucoes) {
-
-        Treino treino = new Treino(UUID.randomUUID().toString(), nomeTreino, descricaoTreino,  especialidadeTreino,  professor, instrucoes);
-
-        if (!validador.validarTreino(treino)){
-            //continua na mesma tela e usuario altera as informações erradas
-            return null;
+        try {
+            stmt = conn.prepareStatement(sqlInsert);
+            stmt.setString(1, UUID.randomUUID().toString());
+            stmt.setString(2, treino.getNomeTreino());
+            stmt.setString(3, treino.getDescricaoTreino());
+            stmt.setString(4, String.join(",", treino.getEspecialidadeTreino()));
+            stmt.setString(5, treino.getIdProfessor());
+            stmt.setString(6, treino.getInstucoes());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao cadastrar treino: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt);
         }
-        treinos.add(treino);
-        JOptionPane.showMessageDialog(null, "Treino criado com sucesso! "+treino.getDados(),"Treino", JOptionPane.INFORMATION_MESSAGE);
-        return treino;
     }
 
-    public List<Treino> getTreinoByEspecialidade(String especialidade) {
-        List<Treino> treinosFiltrados = new ArrayList<>();
-        for (Treino treino : treinos) {
-            if (treino.getEspecialidadeTreino().contains(especialidade)) {
-                treinosFiltrados.add(treino);
+    public Treino buscarTreino(String idTreino) {
+        conn = ConnFactory.getConn();
+        String sqlSelect = "SELECT * FROM Treino WHERE idTreino = ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conn.prepareStatement(sqlSelect);
+            stmt.setString(1, idTreino);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Treino(
+                        rs.getString("idTreino"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        Arrays.asList(rs.getString("especialidades").split(",")),
+                        rs.getString("idProfessor"),
+                        rs.getString("instrucoes")
+                );
             }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar treino: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt, rs);
         }
-
-        return treinosFiltrados;
+        return null;
     }
 
-    public List<Treino> getTreinoByProfessor(String professor) {
-        List<Treino> treinosFiltrados = new ArrayList<>();
-        for (Treino treino : treinos) {
-            if (treino.getProfessor().getNome().equals(professor)) {
-                treinosFiltrados.add(treino);
+    public void atualizarTreino(Treino treino) {
+        conn = ConnFactory.getConn();
+        String sqlUpdate = "UPDATE Treino SET nome = ?, descricao = ?, especialidades = ?, idProfessor = ?, instrucoes = ? WHERE idTreino = ?";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sqlUpdate);
+            stmt.setString(1, treino.getNomeTreino());
+            stmt.setString(2, treino.getDescricaoTreino());
+            stmt.setString(3, String.join(",", treino.getEspecialidadeTreino()));
+            stmt.setString(4, treino.getIdProfessor());
+            stmt.setString(5, treino.getInstucoes());
+            stmt.setString(6, treino.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar treino: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt);
+        }
+    }
+
+    public void excluirTreino(String idTreino) {
+        conn = ConnFactory.getConn();
+        String sqlDelete = "DELETE FROM Treino WHERE idTreino = ?";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sqlDelete);
+            stmt.setString(1, idTreino);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao excluir treino: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt);
+        }
+    }
+
+    public List<Treino> listarTreinos() {
+        conn = ConnFactory.getConn();
+        String sqlSelect = "SELECT * FROM Treino";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Treino> treinos = new ArrayList<>();
+
+        try {
+            stmt = conn.prepareStatement(sqlSelect);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                treinos.add(new Treino(
+                        rs.getString("idTreino"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        Arrays.asList(rs.getString("especialidades").split(",")),
+                        rs.getString("idProfessor"),
+                        rs.getString("instrucoes")
+                ));
             }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar treinos: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt, rs);
         }
-        return treinosFiltrados;
+        return treinos;
     }
 
-    public List<Treino> getTreinoByNome(String nomeTreino) {
-        List<Treino> treinosFiltrados = new ArrayList<>();
-        for (Treino treino : treinos) {
-            if (treino.getNomeTreino().equals(nomeTreino)) {
-                treinosFiltrados.add(treino);
+    public List<Treino> listarTreinosPorProfessor(String idProfessor) {
+        conn = ConnFactory.getConn();
+        String sqlSelect = "SELECT * FROM Treino WHERE idProfessor = ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Treino> treinos = new ArrayList<>();
+
+        try {
+            stmt = conn.prepareStatement(sqlSelect);
+            stmt.setString(1, idProfessor);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                treinos.add(new Treino(
+                        rs.getString("idTreino"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        Arrays.asList(rs.getString("especialidades").split(",")),
+                        rs.getString("idProfessor"),
+                        rs.getString("instrucoes")
+                ));
             }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar treinos do professor: " + e.getMessage());
+        } finally {
+            ConnFactory.closeConn(conn, stmt, rs);
         }
-        return treinosFiltrados;
+        return treinos;
     }
-
 
 }

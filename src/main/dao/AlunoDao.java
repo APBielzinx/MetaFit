@@ -1,9 +1,6 @@
 package main.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.UUID;
 
 import javax.swing.JOptionPane;
@@ -33,7 +30,12 @@ public class AlunoDao
             // Executando a atualização no banco de dados
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (SQLIntegrityConstraintViolationException e)
+        {
+            JOptionPane.showMessageDialog(null, "Este email já foi cadastrado utilize um diferente");
+
+
+        }  catch (SQLException e) {
             try {
                 conn.rollback();
             } catch (SQLException ex) {

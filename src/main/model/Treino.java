@@ -9,16 +9,24 @@ public class Treino {
     private String nomeTreino;
     private String descricaoTreino;
     private List<String> especialidadeTreino;
-    private Professor professor;
+    private String idProfessor;
     private String instucoes;
 
 
-    public Treino(String idTreino, String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, Professor professor, String instucoes) {
+    public Treino(String idTreino, String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, String professor, String instucoes) {
        this.idTreino = idTreino;
         this.nomeTreino = nomeTreino;
         this.descricaoTreino = descricaoTreino;
         this.especialidadeTreino = especialidadeTreino;
-        this.professor = professor;
+        this.idProfessor = professor;
+        this.instucoes = instucoes;
+    }
+
+    public Treino(String nomeTreino, String descricaoTreino, List<String> especialidadeTreino, String professor, String instucoes) {
+        this.nomeTreino = nomeTreino;
+        this.descricaoTreino = descricaoTreino;
+        this.especialidadeTreino = especialidadeTreino;
+        this.idProfessor = professor;
         this.instucoes = instucoes;
     }
 
@@ -52,12 +60,12 @@ public class Treino {
         this.especialidadeTreino = especialidadeTreino;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public String getIdProfessor() {
+        return idProfessor;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setIdProfessor(String idProfessor) {
+        this.idProfessor = idProfessor;
     }
 
     public String getInstucoes() {
@@ -69,7 +77,7 @@ public class Treino {
     }
 
     public String getDados(){
-        return "Id:"+idTreino+"nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + professor + "instrucoes" + instucoes;
+        return "Id:"+idTreino+"nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + idProfessor + "instrucoes" + instucoes;
     }
 
 }
