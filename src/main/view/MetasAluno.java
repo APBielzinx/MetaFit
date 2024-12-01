@@ -38,7 +38,7 @@ public MetasAluno(){
     frame.add(addMeta);
 
     // Ajustando a imagem de fundo
-    ImageIcon imagemFundo = new ImageIcon("src\\main\\view\\MetasAcesso.png");  //caminho da imagem
+    ImageIcon imagemFundo = new ImageIcon("src/main/view/img/MetasAcesso.png");  //caminho da imagem
     Image imagem = imagemFundo.getImage();
     Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
     imagemFundo = new ImageIcon(imagemRedimensionada);

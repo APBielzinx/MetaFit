@@ -27,7 +27,7 @@ public class HomeProf {
         btsairp = new JButton("Sair");
         btsairp.setBounds(20, 450, 326, 46);
 
-        addTreinos = new JButton("Adicionar+");
+        addTreinos = new JButton("Adicionar +");
         addTreinos.setBounds(800, 400, 326, 46);
 
 
@@ -38,7 +38,7 @@ public class HomeProf {
         frame.add(addTreinos);
 
        // Ajustando a imagem de fundo
-      ImageIcon imagemFundo = new ImageIcon("src\\main\\view\\HomeProf.png");  //caminho da imagem
+      ImageIcon imagemFundo = new ImageIcon("src/main/view/img/HomeProf.png");  //caminho da imagem
       Image imagem = imagemFundo.getImage();
       Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
       imagemFundo = new ImageIcon(imagemRedimensionada);

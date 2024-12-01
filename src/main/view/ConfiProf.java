@@ -63,7 +63,7 @@ public class ConfiProf {
 
 
      // Ajustando a imagem de fundo
-     ImageIcon imagemFundo = new ImageIcon("src\\main\\view\\ConfiPF.png");  //caminho da imagem
+     ImageIcon imagemFundo = new ImageIcon("src/main/view/img/ConfiPF.png");  //caminho da imagem
      Image imagem = imagemFundo.getImage();
      Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
      imagemFundo = new ImageIcon(imagemRedimensionada);
