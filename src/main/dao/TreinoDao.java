@@ -14,25 +14,32 @@ public class TreinoDao {
 
     private  Connection conn = ConnFactory.getConn();
 
-    public void cadastrarTreino(Treino treino) {
+    public Treino cadastrarTreino(Treino treino) {
         conn = ConnFactory.getConn();
         String sqlInsert = "INSERT INTO Treino (idTreino, nome, descricao, especialidades, idProfessor, instrucoes) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = null;
 
         try {
+            String id = UUID.randomUUID().toString();
             stmt = conn.prepareStatement(sqlInsert);
-            stmt.setString(1, UUID.randomUUID().toString());
+            stmt.setString(1, id );
             stmt.setString(2, treino.getNomeTreino());
             stmt.setString(3, treino.getDescricaoTreino());
             stmt.setString(4, String.join(",", treino.getEspecialidadeTreino()));
             stmt.setString(5, treino.getIdProfessor());
             stmt.setString(6, treino.getInstucoes());
             stmt.executeUpdate();
+
+            treino.setId(id);
+            return treino;
+
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar treino: " + e.getMessage());
         } finally {
             ConnFactory.closeConn(conn, stmt);
         }
+
+        return null;
     }
 
     public Treino buscarTreino(String idTreino) {

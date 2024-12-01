@@ -16,13 +16,14 @@ public class ProfessorDao
     Connection conn = ConnFactory.getConn();
     public void cadastrarProfesssor(String idUsuario, List<String> especialidades) 
     {
+        conn = ConnFactory.getConn();
         String sqlInsert = "INSERT INTO Professor(idProfessor, idUsuario, especialidades) VALUES (?, ?, ?)";
         PreparedStatement stmt = null;
 
         try 
         {
             stmt = conn.prepareStatement(sqlInsert);
-            stmt.setString(1, UUID.randomUUID().toString()); 
+            stmt.setString(1, idUsuario);
             stmt.setString(2, idUsuario);
             stmt.setString(3, String.join(",", especialidades));
             stmt.executeUpdate();

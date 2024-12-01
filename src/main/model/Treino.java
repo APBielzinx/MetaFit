@@ -36,6 +36,10 @@ public class Treino {
         return idTreino;
     }
 
+    public void setId(String idTreino) {
+        this.idTreino = idTreino;
+    }
+
     public String getNomeTreino() {
         return nomeTreino;
     }

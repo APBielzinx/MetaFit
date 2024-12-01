@@ -12,7 +12,7 @@ public class AlunoDao
     Connection conn = ConnFactory.getConn();
 
     public void cadastrarAluno(String idUsuario, int idade, double peso, String genero, double pesoMeta) {
-
+        conn = ConnFactory.getConn();
         String sql = "INSERT INTO Aluno(idAluno, idUsuario, idade, peso, genero, pesoMeta) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = null;
 
@@ -20,7 +20,7 @@ public class AlunoDao
 
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, UUID.randomUUID().toString());
+            stmt.setString(1, idUsuario);
             stmt.setString(2, idUsuario);
             stmt.setInt(3, idade);
             stmt.setDouble(4, peso);

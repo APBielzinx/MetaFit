@@ -11,9 +11,9 @@ public class TreinoController {
     private final TreinoDao treinoDao = new TreinoDao();
     private final Validador validador = new Validador();
 
-    public void cadastrar(Treino treino) {
+    public Treino cadastrar(Treino treino) {
         if (validador.validarTreino(treino)) {
-            treinoDao.cadastrarTreino(treino);
+           return treinoDao.cadastrarTreino(treino);
         } else {
             throw new IllegalArgumentException("Dados do treino inválidos");
         }

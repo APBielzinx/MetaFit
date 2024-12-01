@@ -105,12 +105,8 @@ public class UsuarioDao {
            stmt.setString(1, email);
           stmt.setString(2, CriptografarSenha.criptografarSenha(senha));
             rs = stmt.executeQuery();
-
-            System.out.println(stmt);
-
             if(rs.next()) {
                 if (rs.getString("email").equals(email) && rs.getString("senha").equals(CriptografarSenha.criptografarSenha(senha))) {
-                    System.out.println("a");
                     if (rs.getInt("tipo") == 1) {
                        ProfessorDao profDao = new ProfessorDao();
                         return profDao.buscarProfessor((rs.getString("idUsuario")));
