@@ -14,7 +14,7 @@ public class ProfessorController implements UsuarioController
     ProfessorDao professorDao = new ProfessorDao();
     UsuarioDao usuarioDao = new UsuarioDao();
 
-    public void cadastrar(Object o)
+    public Professor cadastrar(Object o)
     {
         if(o instanceof Professor professor)
         {
@@ -22,8 +22,9 @@ public class ProfessorController implements UsuarioController
             String idUsuario = usuarioDao.cadastrarUsuario(professor.getNome(), professor.getEmail(),
             senhaCriptografada, professor.getTipo());
             professorDao.cadastrarProfesssor(idUsuario, professor.getEspecialidades());
-            buscar(idUsuario);
+           return buscar(idUsuario);
         }
+        return null;
     }
 
     public Professor buscar(String id)

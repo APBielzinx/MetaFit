@@ -6,6 +6,7 @@ import main.dao.AlunoDao;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
 import main.model.Professor;
+import main.view.TelaLoginCadastro;
 
 import javax.swing.*;
 
@@ -17,15 +18,19 @@ public class AlunoController implements UsuarioController{
 
 
     @Override
-    public void cadastrar(Object o) {
-            if (o instanceof Aluno aluno){
+    public Aluno cadastrar(Object o) {
+        if (o instanceof Aluno aluno) {
+            if (validador.validarAluno(aluno)) {
                 String senhaCriptografada = CriptografarSenha.criptografarSenha(aluno.getSenha());
                 String idUsuario = usuarioDao.cadastrarUsuario(aluno.getNome(), aluno.getEmail(),senhaCriptografada, aluno.getTipo());
                 alunoDao.cadastrarAluno(idUsuario, aluno.getIdade(), aluno.getPeso(), aluno.getGenero(), aluno.getPesoMeta());
-                System.out.println(buscar(idUsuario).toString());
+                return buscar(idUsuario);
+
             }
 
         }
+        return null;
+    }
     @Override
     public Aluno buscar(String id) {
         if (id != null && !id.isEmpty()){
@@ -54,15 +59,13 @@ public class AlunoController implements UsuarioController{
     }
 
     @Override
-    public Aluno fazerLogin(String email, String senha) {
-    if (usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Aluno.class)){
-        //Direcionar para tela home do usuario
-        Aluno aluno = (Aluno) usuarioDao.fazerLogin(email,senha);
-        JOptionPane.showMessageDialog(null,"Seja bem vindo! "+aluno.getNome());
-        return aluno;
-    } else {
-        return null;
-    }
+    public Object fazerLogin(String email, String senha) {
+        if (usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Aluno.class)){
+            //Direcionar para tela home do usuario
+            return usuarioDao.fazerLogin(email,senha);
+        } else {
+            return null;
+        }
     }
 
 }

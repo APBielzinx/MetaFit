@@ -1,11 +1,14 @@
 package main.view;
 
+import main.controller.AlunoController;
+import main.model.Aluno;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TelaCadAluno {
+public class TelaCadAluno implements ActionListener {
     private JButton botaoConcluirCad;
     private JTextField nome;
     private JTextField idade;
@@ -13,11 +16,11 @@ public class TelaCadAluno {
     private JTextField peso;
     private JTextField genero;
     private JTextField senha;
-
+    JFrame frame = new JFrame("Cadastro do aluno");
 
     //Criando
     public TelaCadAluno() {
-        JFrame frame = new JFrame("Cadastro do aluno");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -84,6 +87,8 @@ public class TelaCadAluno {
     
 // Exibir o frame
 frame.setVisible(true);
+
+    botaoConcluirCad.addActionListener(this);
 }
 
     public static void main(String[] args) {
@@ -91,6 +96,21 @@ frame.setVisible(true);
         SwingUtilities.invokeLater(() -> new TelaCadAluno());
     
 }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == botaoConcluirCad) {
+            AlunoController alunoController = new AlunoController();
+            Aluno aluno =  alunoController.cadastrar(new Aluno(nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
+            if (aluno != null) {
+                JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
+                frame.dispose();
+                    new TelaLoginCadastro();
+            }
+        }
+
+    }
 }
    
 

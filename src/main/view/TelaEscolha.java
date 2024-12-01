@@ -5,11 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TelaEscolha {
+public class TelaEscolha implements ActionListener {
     private JButton botaoAluno, botaoProfessor;
+    JFrame frame = new JFrame("Opções de Cadastro");
+
     //criando
     public TelaEscolha() {
-        JFrame frame = new JFrame("Opções de Cadastro");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -29,6 +30,10 @@ public class TelaEscolha {
         // Adicionar os botões ao frame
         frame.add(botaoAluno);
         frame.add(botaoProfessor);
+        botaoAluno.addActionListener(this);
+        botaoProfessor.addActionListener(this);
+
+
        
         // Ajustando a imagem de fundo
         ImageIcon imagemFundo = new ImageIcon("src/main/view/img/usuárioNaoCadastrado.png");  //caminho da imagem
@@ -49,5 +54,13 @@ public class TelaEscolha {
             //RODAR
             SwingUtilities.invokeLater(() -> new TelaEscolha());
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == botaoAluno) {
+            frame.dispose();
+            new TelaCadAluno();
+        }
     }
 }

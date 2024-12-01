@@ -30,6 +30,7 @@ public class AlunoDao
             // Executando a atualização no banco de dados
             stmt.executeUpdate();
 
+
         } catch (SQLIntegrityConstraintViolationException e)
         {
             JOptionPane.showMessageDialog(null, "Este email já foi cadastrado utilize um diferente");

@@ -15,7 +15,7 @@ public class Aluno extends Usuario
         this.genero = genero;
     }
     public Aluno(String nome, String email, String senha,
-                 int tipo, int idade, String genero, double peso, double pesoMeta)
+                 int tipo, int idade, String genero, double peso)
     {
         super(nome, email, senha, tipo);
         this.idade = idade;
