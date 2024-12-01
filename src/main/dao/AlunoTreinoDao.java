@@ -2,6 +2,7 @@ package main.dao;
 
 import main.model.Treino;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,16 +65,20 @@ public class AlunoTreinoDao {
             stmt.setString(1, idAluno);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Treino treino = new Treino(
-                        rs.getString("idTreino"),
-                        rs.getString("nome"),
-                        rs.getString("descricao"),
-                        List.of(rs.getString("especialidades").split(",")), // Converte a string para lista
-                        rs.getString("idProfessor"),
-                        rs.getString("instrucoes")
-                );
-                treinos.add(treino);
+            if (rs.next()) {
+                while (rs.next()) {
+                    Treino treino = new Treino(
+                            rs.getString("idTreino"),
+                            rs.getString("nome"),
+                            rs.getString("descricao"),
+                            List.of(rs.getString("especialidades").split(",")), // Converte a string para lista
+                            rs.getString("idProfessor"),
+                            rs.getString("instrucoes")
+                    );
+                    treinos.add(treino);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"Nenhum treino encontrado","Atenção",JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar treinos do aluno: " + e.getMessage());

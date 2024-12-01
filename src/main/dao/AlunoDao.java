@@ -108,6 +108,7 @@ public class AlunoDao
     }
 
     public void excluirAluno(String idUsuario) {
+        conn = ConnFactory.getConn();
         String sql = "DELETE FROM Aluno WHERE idUsuario = ?";
         PreparedStatement stmt = null;
 

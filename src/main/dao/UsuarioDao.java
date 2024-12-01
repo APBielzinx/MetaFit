@@ -17,7 +17,7 @@ public class UsuarioDao {
 
 
     public String cadastrarUsuario(String nome, String email, String senha, int tipo) {
-
+        conn = ConnFactory.getConn();
         String sql = "INSERT INTO usuario (idUsuario,nome,email,senha,tipo) VALUES (?,?,?,?,?)";
 
         PreparedStatement stmt = null;
@@ -37,7 +37,7 @@ public class UsuarioDao {
         {   conn.rollback();
         }
         catch(SQLException ex)
-        {   System.out.println("Erro ao incluir os dados" + ex.toString());
+        {   System.out.println("Erro ao incluir os dados do prof" + ex.toString());
         }
         }
         finally
@@ -71,6 +71,7 @@ public class UsuarioDao {
     }
 
     public void excluirUsuario(String idUsuario) {
+        conn = ConnFactory.getConn();
         String sql = "DELETE FROM Usuario WHERE idUsuario = ?";
         PreparedStatement stmt = null;
 
@@ -100,14 +101,16 @@ public class UsuarioDao {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, email);
-            stmt.setString(2, CriptografarSenha.criptografarSenha(senha));
+           stmt.setString(1, email);
+          stmt.setString(2, CriptografarSenha.criptografarSenha(senha));
             rs = stmt.executeQuery();
+
+            System.out.println(stmt);
 
             if(rs.next()) {
                 if (rs.getString("email").equals(email) && rs.getString("senha").equals(CriptografarSenha.criptografarSenha(senha))) {
+                    System.out.println("a");
                     if (rs.getInt("tipo") == 1) {
                        ProfessorDao profDao = new ProfessorDao();
                         return profDao.buscarProfessor((rs.getString("idUsuario")));

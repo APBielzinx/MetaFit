@@ -76,7 +76,7 @@ public class Treino {
         this.instucoes = instucoes;
     }
 
-    public String getDados(){
+    public String toString(){
         return "Id:"+idTreino+"nome" + nomeTreino + "descricao" + descricaoTreino + "especialidade" + especialidadeTreino + "professor" + idProfessor + "instrucoes" + instucoes;
     }
 

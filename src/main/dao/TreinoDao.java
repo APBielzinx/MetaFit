@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import main.model.Treino;
 
+import javax.swing.*;
+
 public class TreinoDao {
 
     private  Connection conn = ConnFactory.getConn();
@@ -53,6 +55,8 @@ public class TreinoDao {
                         rs.getString("idProfessor"),
                         rs.getString("instrucoes")
                 );
+            }else {
+                JOptionPane.showMessageDialog(null,"Treino não encontrado","Erro",JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar treino: " + e.getMessage());
