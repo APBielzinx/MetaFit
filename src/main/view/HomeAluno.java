@@ -65,7 +65,7 @@ public class HomeAluno {
        frame.add(btmetas);
        frame.add(btsair);
        // Ajustando a imagem de fundo
-    ImageIcon imagemFundo = new ImageIcon("HomeALU.jpg");  //caminho da imagem
+    ImageIcon imagemFundo = new ImageIcon("src\\main\\view\\HomeAluno.png");  //caminho da imagem
     Image imagem = imagemFundo.getImage();
     Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
     imagemFundo = new ImageIcon(imagemRedimensionada);

@@ -38,7 +38,7 @@ public class HomeProf {
         frame.add(addTreinos);
 
        // Ajustando a imagem de fundo
-      ImageIcon imagemFundo = new ImageIcon("HOMEPROFS.jpg");  //caminho da imagem
+      ImageIcon imagemFundo = new ImageIcon("src\\main\\view\\HomeProf.png");  //caminho da imagem
       Image imagem = imagemFundo.getImage();
       Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
       imagemFundo = new ImageIcon(imagemRedimensionada);
