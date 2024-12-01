@@ -49,5 +49,9 @@ public class TreinoController {
         throw new IllegalArgumentException("ID do professor inválido");
     }
 
+    public List<Treino> listarTodos() {
+            return treinoDao.listarTreinos();
+    }
+
 
 }

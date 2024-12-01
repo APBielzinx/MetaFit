@@ -5,7 +5,6 @@ import main.controller.AlunoController;
 import main.controller.AlunoTreinoController;
 import main.controller.ProfessorController;
 import main.controller.TreinoController;
-import main.controller.utils.CriptografarSenha;
 import main.model.Aluno;
 import main.model.Professor;
 import main.model.Treino;
@@ -68,6 +67,7 @@ public class Main {
        treinoController.atualizar(treinoBuscado);
        System.out.println("Treino atualizado com sucesso!");
 
+       treinoController.listarTodos().forEach(t -> System.out.println(t.toString()));
 
         System.out.println("\n=== Excluindo um treino pelo ID ===");
         treinoController.excluir(treino.getId());
