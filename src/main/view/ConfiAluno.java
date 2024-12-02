@@ -1,11 +1,16 @@
 package main.view;
 
+import main.controller.AlunoController;
+import main.controller.AlunoTreinoController;
+import main.controller.utils.CriptografarSenha;
+import main.model.Aluno;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConfiAluno {
+public class ConfiAluno implements ActionListener {
     private JButton botaoAlterar;
     private JButton voltarhome;
     private JButton excluirConta;
@@ -15,9 +20,12 @@ public class ConfiAluno {
     private JTextField peso;
     private JTextField genero;
     private JTextField senha;
+    private Aluno aluno;
+    JFrame frame = new JFrame("Configurações");
 
-    public ConfiAluno() {
-        JFrame frame = new JFrame("Configurações");
+    public ConfiAluno(Aluno aluno) {
+        this.aluno = aluno;
+        System.out.println(aluno.getIdade());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -26,27 +34,27 @@ public class ConfiAluno {
         frame.setLayout(null);
 
            // definindo os JtextField 
-    nome = new JTextField("Miriam Gama Moura da Silva");  
+    nome = new JTextField(aluno.getNome());
     nome.setBounds(360, 300, 400, 36);  
     nome.setForeground(Color.decode("#141831"));
 
-    idade = new JTextField("18");
+    idade = new JTextField(""+aluno.getIdade());
     idade.setBounds(360, 350, 400, 36);
     idade.setForeground(Color.decode("#141831"));
 
-    email = new JTextField("miriam123@gmail.com");
+    email = new JTextField(aluno.getEmail());
     email.setBounds(360, 400, 400, 36);
     email.setForeground(Color.decode("#141831"));
 
-    peso = new JTextField("64");
+    peso = new JTextField(""+aluno.getPeso());
     peso.setBounds(360, 450, 400, 36);
     peso.setForeground(Color.decode("#141831"));
 
-    genero = new JTextField("F");
+    genero = new JTextField(aluno.getGenero());
     genero.setBounds(360, 500, 400, 36);
     genero.setForeground(Color.decode("#141831"));
 
-    senha = new JTextField("mimi123");
+    senha = new JTextField();
     senha.setBounds(360, 550, 400, 36);
     senha.setForeground(Color.decode("#141831"));
 
@@ -78,6 +86,10 @@ public class ConfiAluno {
     frame.add(voltarhome);
     frame.add(excluirConta);
 
+    botaoAlterar.addActionListener(this);
+    voltarhome.addActionListener(this);
+    excluirConta.addActionListener(this);
+
 
      // Ajustando a imagem de fundo
      ImageIcon imagemFundo = new ImageIcon("src/main/view/img/ConfAl.png");  //caminho da imagem
@@ -95,11 +107,40 @@ public class ConfiAluno {
       // Exibir o frame
     frame.setVisible(true);
     }
- 
-     public static void main(String[] args) {
-         //RODAR
-         SwingUtilities.invokeLater(() -> new ConfiAluno());
-     
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == botaoAlterar) {
+
+
+            if (!senha.equals("Digite sua senha")) {
+                AlunoController alunoController = new AlunoController();
+
+                if (!aluno.getSenha().equals(CriptografarSenha.criptografarSenha(senha.getText()))) {
+                    alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), CriptografarSenha.criptografarSenha(senha.getText()), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
+                } else {
+                    alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
+
+                }
+            }else {
+                JOptionPane.showMessageDialog(frame, "Digite sua senha");
+            }
+        }
+
+        if (e.getSource() == excluirConta){
+            AlunoController alunoController= new AlunoController();
+            alunoController.excluir(aluno.getId());
+            frame.dispose();
+            new TelaLoginCadastro();
+        }
+
+
+        if (e.getSource() == voltarhome) {
+            frame.dispose();
+            new HomeAluno(aluno);
+        }
+
     }
-    
 }

@@ -1,9 +1,15 @@
 package main.view;
 
+import main.controller.AlunoTreinoController;
+import main.model.Aluno;
+import main.model.Treino;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TreinosAluno {
     private JButton bttreinos;
@@ -14,11 +20,12 @@ public class TreinosAluno {
     private JButton btT2;
     private JButton btT3;
     private JButton voltarhome;
-    
-
+    private Aluno aluno;
+    JFrame frame = new JFrame("Treinos");
      //Criando
-     public TreinosAluno() {
-        JFrame frame = new JFrame("Treinos");
+     public TreinosAluno(Aluno aluno) {
+         this.aluno = aluno;
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -43,28 +50,44 @@ public class TreinosAluno {
        btsair = new JButton("Sair");
        btsair.setBounds(80, 550, 199, 46);
 
-       //botões do catálogo
-       btT1 = new JButton("FullBody");
-       btT1.setBounds(500, 400, 199, 46);
-       
-       btT2 = new JButton("Treino para Hipertrofia Muscular");
-       btT2.setBounds(500, 500, 199, 46);
-
-       btT3 = new JButton("Treino para Perda de Peso");
-       btT3.setBounds(500, 600, 199, 46);
+//       //botões do catálogo
+//       btT1 = new JButton("FullBody");
+//       btT1.setBounds(500, 400, 199, 46);
+//
+//       btT2 = new JButton("Treino para Hipertrofia Muscular");
+//       btT2.setBounds(500, 500, 199, 46);
+//
+//       btT3 = new JButton("Treino para Perda de Peso");
+//       btT3.setBounds(500, 600, 199, 46);
 
        //BOTÕES DO CATÁLOGO
-       frame.add(btT1);
-       frame.add(btT2);
-       frame.add(btT3);
+//       frame.add(btT1);
+//       frame.add(btT2);
+//       frame.add(btT3);
+
+         AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
+         ArrayList<Treino> treinos =  alunoTreinoController.listarTreinosPorAluno(aluno.getId());
 
 
 
-       
+         int yPosition = 400; // Posição inicial dos botões
+         for (Treino treino : treinos) {
+             JButton button = new JButton(treino.getNomeTreino());
+             button.setBounds(500, yPosition, 199, 46);
+             frame.add(button);
+
+             button.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     JOptionPane.showMessageDialog(frame, "ID do Treino: " + treino.getId());
+                 }
+             });
+
+             yPosition += 50;
+         }
 
 
-
-       //adicionando os botões
+         //adicionando os botões
        frame.add(bttreinos);
        frame.add(btconfiguracao);
        frame.add(btmetas);
@@ -87,11 +110,6 @@ public class TreinosAluno {
 frame.setVisible(true);
 }
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new TreinosAluno());
-    
-    }
 }
      
 

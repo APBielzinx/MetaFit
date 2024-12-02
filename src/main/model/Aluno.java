@@ -13,6 +13,17 @@ public class Aluno extends Usuario
         super(id, nome, email, senha, tipo);
         this.idade = idade;
         this.genero = genero;
+        this.peso = peso;
+        this.pesoMeta = pesoMeta;
+    }
+
+    public Aluno(String id, String nome, String email, String senha,
+                 int tipo, int idade, String genero, double peso)
+    {
+        super(id, nome, email, senha, tipo);
+        this.idade = idade;
+        this.genero = genero;
+        this.peso = peso;
     }
     public Aluno(String nome, String email, String senha,
                  int tipo, int idade, String genero, double peso)
@@ -20,6 +31,7 @@ public class Aluno extends Usuario
         super(nome, email, senha, tipo);
         this.idade = idade;
         this.genero = genero;
+        this.peso = peso;
     }
 
     public int getIdade() 
