@@ -62,5 +62,10 @@ public class TelaEscolha implements ActionListener {
             frame.dispose();
             new TelaCadAluno();
         }
+        else if(e.getSource() == botaoProfessor)
+        {
+            frame.dispose();
+            new TelaCadProf();
+        }
     }
 }

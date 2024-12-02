@@ -62,14 +62,15 @@ public class ProfessorController implements UsuarioController
         }
     }
 
-    public Professor fazerLogin(String email, String senha)
+    public Object fazerLogin(String email, String senha)
     {
         if(usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class))
         {
-            Professor professor = (Professor) usuarioDao.fazerLogin(email, senha);
-            JOptionPane.showMessageDialog(null, "Seja bem vindo! " + professor.getNome());
-            return professor;
+            return usuarioDao.fazerLogin(email,senha); //Direcionar para tela home do usuario???
         }
-        return null;
+        else
+        {
+            return null;
+        }
     }
 }

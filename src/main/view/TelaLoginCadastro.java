@@ -81,7 +81,7 @@ public class TelaLoginCadastro implements ActionListener{
         }
         if(e.getSource() == botaoLogin){
             String email = campoEmail.getText();
-            String senha = campoSenha.getText();
+            String senha = new String (campoSenha.getPassword());
             AlunoController alunoController = new AlunoController();
           Object usuario = alunoController.fazerLogin(email,senha);
 
