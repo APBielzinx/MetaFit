@@ -3,6 +3,7 @@ package main.controller;
 import main.dao.AlunoTreinoDao;
 import main.model.Treino;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlunoTreinoController {
@@ -25,7 +26,7 @@ public class AlunoTreinoController {
         }
     }
 
-    public List<Treino> listarTreinosPorAluno(String idAluno) {
+    public ArrayList<Treino> listarTreinosPorAluno(String idAluno) {
         if (idAluno != null && !idAluno.isEmpty()) {
             return alunoTreinoDao.listarTreinosPorAluno(idAluno);
         }

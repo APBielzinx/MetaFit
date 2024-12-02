@@ -1,25 +1,30 @@
 package main.view;
 
+import main.model.Aluno;
+import main.model.Treino;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class HomeAluno {
+public class HomeAluno implements ActionListener {
     private JButton bttreinos;
     private JButton btconfiguracao;
     private JButton btmetas;
     private JButton btsair;
-    private JButton btT1;
-    private JButton btT2;
-    private JButton btT3;
-    
+    private Aluno aluno;
 
+    JFrame frame = new JFrame("Home Aluno");
      //Criando
-     public HomeAluno() {
-        JFrame frame = new JFrame("Home Aluno");
+     public HomeAluno(Aluno aluno) {
+         this.aluno = aluno;
+         ArrayList<Treino> treinos = new ArrayList<>();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280, 800);  
+        frame.setSize(1280, 800);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         // Layout nulo para posicionamento manual
@@ -38,32 +43,54 @@ public class HomeAluno {
        btsair = new JButton("Sair");
        btsair.setBounds(80, 550, 199, 46);
 
-       //botões do catálogo
-       btT1 = new JButton("FullBody");
-       btT1.setBounds(500, 300, 199, 46);
-       
-       btT2 = new JButton("Treino para Hipertrofia Muscular");
-       btT2.setBounds(500, 400, 199, 46);
+//       //botões do catálogo
+//       btT1 = new JButton("FullBody");
+//       btT1.setBounds(500, 300, 199, 46);
+//
+//       btT2 = new JButton("Treino para Hipertrofia Muscular");
+//       btT2.setBounds(500, 400, 199, 46);
+//
+//       btT3 = new JButton("Treino para Perda de Peso");
+//       btT3.setBounds(500, 500, 199, 46);
+//
+//       //BOTÕES DO CATÁLOGO
+//       frame.add(btT1);
+//       frame.add(btT2);
+//       frame.add(btT3);
+//
+//
+       treinos.add(new Treino("sdad56asd","1", "Treino A", Arrays.asList("a", "b", "c"), "Descrição 1", "Outro dado"));
+       treinos.add(new Treino("sdadfedasd", "2", "Treino B", Arrays.asList("a", "b", "c"), "Descrição 2", "Outro dado"));
+       treinos.add(new Treino("sdadfdasd","3", "Treino C", Arrays.asList("a", "b", "c"), "Descrição 3", "Outro dado"));
 
-       btT3 = new JButton("Treino para Perda de Peso");
-       btT3.setBounds(500, 500, 199, 46);
 
-       //BOTÕES DO CATÁLOGO
-       frame.add(btT1);
-       frame.add(btT2);
-       frame.add(btT3);
+         int yPosition = 300; // Posição inicial dos botões
+         for (Treino treino : treinos) {
+             JButton button = new JButton(treino.getNomeTreino());
+             button.setBounds(500, yPosition, 199, 46);
+             frame.add(button);
 
+             button.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     JOptionPane.showMessageDialog(frame, "ID do Treino: " + treino.getId());
+                 }
+             });
 
+             yPosition += 50; // Incrementa a posição para o próximo botão
+         }
 
-       
-
-
-
-       //adicionando os botões
+         //adicionando os botões
        frame.add(bttreinos);
        frame.add(btconfiguracao);
        frame.add(btmetas);
        frame.add(btsair);
+
+       btconfiguracao.addActionListener(this);
+       bttreinos.addActionListener(this);
+       btmetas.addActionListener(this);
+       btsair.addActionListener(this);
+
        // Ajustando a imagem de fundo
     ImageIcon imagemFundo = new ImageIcon("src/main/view/img/HomeAluno.png");  //caminho da imagem
     Image imagem = imagemFundo.getImage();
@@ -75,16 +102,26 @@ public class HomeAluno {
     fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
     frame.add(fundo);
 
-    
-    
+
+
 // Exibir o frame
 frame.setVisible(true);
-}
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new HomeAluno());
-    
+         }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+         if (e.getSource() == bttreinos) {
+             frame.dispose();
+             new TreinosAluno(aluno);
+         }
+         if (e.getSource() == btconfiguracao) {
+             frame.dispose();
+             new ConfiAluno(aluno);
+         }
+
     }
 }
      

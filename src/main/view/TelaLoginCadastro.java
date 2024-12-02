@@ -1,6 +1,7 @@
 package main.view;
 
 import main.controller.AlunoController;
+import main.controller.utils.CriptografarSenha;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
 import main.model.Professor;
@@ -88,7 +89,8 @@ public class TelaLoginCadastro implements ActionListener{
             if (usuario != null){
                 if (usuario instanceof Aluno){
                     frame.dispose();
-                    new HomeAluno();
+                    System.out.println(usuario);
+                    new HomeAluno((Aluno) usuario);
                 }else if (usuario instanceof Professor){
                     frame.dispose();
                     new HomeProf();
@@ -105,7 +107,6 @@ public class TelaLoginCadastro implements ActionListener{
 //------------------------------------------------------------------------------------------------------------------------------------------
 
     public static void main(String[] args) {
-        // Executar o código na thread de interface gráfica (Swing)
         SwingUtilities.invokeLater(TelaLoginCadastro::new);
     }
 

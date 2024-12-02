@@ -56,7 +56,7 @@ public class UsuarioDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, email);
-            stmt.setString(3, CriptografarSenha.criptografarSenha(senha));
+            stmt.setString(3, senha);
             stmt.setInt(4, tipo);
             stmt.setString(5, idUsuario);
             stmt.executeUpdate();

@@ -48,7 +48,7 @@ public class AlunoTreinoDao {
         }
     }
 
-    public List<Treino> listarTreinosPorAluno(String idAluno) {
+    public ArrayList<Treino> listarTreinosPorAluno(String idAluno) {
         conn = ConnFactory.getConn();
         String sql = """
                 SELECT t.idTreino, t.nome, t.descricao, t.especialidades, t.idProfessor, t.instrucoes
@@ -56,7 +56,7 @@ public class AlunoTreinoDao {
                 INNER JOIN Aluno_Treino at ON t.idTreino = at.idTreino
                 WHERE at.idAluno = ?
                 """;
-        List<Treino> treinos = new ArrayList<>();
+        ArrayList<Treino> treinos = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
