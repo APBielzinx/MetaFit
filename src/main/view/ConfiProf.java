@@ -1,5 +1,7 @@
 package main.view;
 
+import main.model.Professor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,10 +15,11 @@ public class ConfiProf implements ActionListener{
     private JTextField especialidade;
     private JTextField emailp;
     private JTextField senhap;
-    private JFrame frame;
+    private Professor professor;
+    JFrame frame = new JFrame("Configurações");
 
-    public ConfiProf() {
-        frame = new JFrame("Configurações");
+    public ConfiProf(Professor professor) {
+        this.professor = professor;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -84,19 +87,14 @@ public class ConfiProf implements ActionListener{
       // Exibir o frame
     frame.setVisible(true);
     }
- 
-     public static void main(String[] args) {
-         //RODAR
-         SwingUtilities.invokeLater(() -> new ConfiProf());
-     
-    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == voltarhomep)
         {
             frame.dispose();
-            new HomeProf();
+            new HomeProf(professor);
         }
     }
 }

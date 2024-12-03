@@ -61,16 +61,15 @@ public class ProfessorDao
             stmt = conn.prepareStatement(sqlSelect);
             stmt.setString(1, idUsuario);
             rs = stmt.executeQuery();
-
             if(rs.next())
             {
-                String sEspecialidades = rs.getString("Especialidades");
+                String sEspecialidades = rs.getString("especialidades");
                 List<String> especialidades = Arrays.asList(sEspecialidades.split(","));
                  return new Professor(rs.getString("idUsuario"),
-                 rs.getString("Nome"),
-                 rs.getString("Email"),
-                 rs.getString("Senha"),
-                 rs.getInt("Tipo"),
+                 rs.getString("nome"),
+                 rs.getString("email"),
+                 rs.getString("senha"),
+                 rs.getInt("tipo"),
                  especialidades);
             }
             else

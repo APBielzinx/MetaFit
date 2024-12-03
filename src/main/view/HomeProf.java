@@ -1,18 +1,20 @@
 package main.view;
 
+import main.model.Professor;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HomeProf {
     private JButton btconfiguracaop;
     private JButton btsairp;
     private JButton addTreinos;
+    private Professor professor;
+    JFrame frame = new JFrame("Home Professor");
 
+    public HomeProf(Professor usuario) {
+        this.professor = usuario;
 
-    public HomeProf() {
-        JFrame frame = new JFrame("Home Professor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -54,11 +56,6 @@ public class HomeProf {
     frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-    //RODAR
-    SwingUtilities.invokeLater(() -> new HomeProf());
-
-    }
 }
  
 

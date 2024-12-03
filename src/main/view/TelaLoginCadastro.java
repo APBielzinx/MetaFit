@@ -1,6 +1,7 @@
 package main.view;
 
 import main.controller.AlunoController;
+import main.controller.ProfessorController;
 import main.controller.utils.CriptografarSenha;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
@@ -25,19 +26,19 @@ public class TelaLoginCadastro implements ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  // Tamanho da janela
         frame.setLocationRelativeTo(null);  // centraliza a janela na telCea
-        frame.setResizable(false);  // Desabilita maximizar 
+        frame.setResizable(false);  // Desabilita maximizar
         // Layout nulo para posicionamento manual
         frame.setLayout(null);
 
         // Definir os campos de texto para e-mail e senha
         campoEmail = new JTextField();
         campoEmail.setBounds(400, 359, 480, 36);  // Posição e tamanho do campo de e-mail
-       
+
 
         campoSenha = new JPasswordField();
         campoSenha.setBounds(400, 439, 480, 36);  // Posição e tamanho do campo de senha
-       
-        
+
+
 
         // Adicionar os campos de texto ao frame
         frame.add(campoEmail);
@@ -46,7 +47,7 @@ public class TelaLoginCadastro implements ActionListener{
         // Definir os botões de Login e Cadastro
         botaoLogin = new JButton("Entrar");
         botaoLogin.setBounds(490, 500, 300, 46);  // Posição e tamanho do botão "Entrar na Home"
-        
+
         botaoCadastro = new JButton("Cadastro");
         botaoCadastro.setBounds(490, 570, 300, 46);  // Posição e tamanho do botão "Cadastro"
 
@@ -84,20 +85,26 @@ public class TelaLoginCadastro implements ActionListener{
             String email = campoEmail.getText();
             String senha = new String (campoSenha.getPassword());
             AlunoController alunoController = new AlunoController();
-          Object usuario = alunoController.fazerLogin(email,senha);
-
+            Object usuario = alunoController.fazerLogin(email,senha);
             if (usuario != null){
                 if (usuario instanceof Aluno){
                     frame.dispose();
                     new HomeAluno((Aluno) usuario);
-                }else if (usuario instanceof Professor){
-                    frame.dispose();
-                    new HomeProf();
                 }
+                }
+            ProfessorController professorController = new ProfessorController();
+            usuario = professorController.fazerLogin(email,senha);
+            if (usuario != null){
+                if (usuario instanceof Professor){
+                    frame.dispose();
+                    new HomeProf((Professor) usuario);
+                }
+            }
+
             }
         }
 
-    }
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //MAIN ABAIXO

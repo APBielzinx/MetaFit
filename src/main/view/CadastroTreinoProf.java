@@ -1,5 +1,7 @@
 package main.view;
 
+import main.model.Professor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,13 +13,14 @@ public class CadastroTreinoProf implements ActionListener
     private JTextField nomeTreino;
     private JTextArea objetivo;
     private JButton voltarhomep;
-    private JFrame frame;
-
+    JFrame frame = new JFrame("Cadastro inicial do Treino");
+    private Professor professor;
 
     
-    public CadastroTreinoProf()
+    public CadastroTreinoProf(Professor professor)
     {
-    frame = new JFrame("Cadastro inicial do Treino");
+        this.professor = professor;
+
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1280, 800);  
     frame.setLocationRelativeTo(null);
@@ -64,14 +67,9 @@ public class CadastroTreinoProf implements ActionListener
 }
 
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new CadastroTreinoProf());
-
-    }
     public void actionPerformed(ActionEvent e) {
         frame.dispose();
-          new HomeProf();
+          new HomeProf(professor);
 }
 
 

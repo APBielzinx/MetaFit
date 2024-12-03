@@ -1,5 +1,6 @@
 package main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Professor extends Usuario{
@@ -12,7 +13,7 @@ public class Professor extends Usuario{
         this.especialidades = especialidades;
     }
 
-    public Professor(String nome, String email, String senha, int tipo, List<String>especialidades) {
+    public Professor(String nome, String email, String senha, int tipo, ArrayList<String> especialidades) {
         super(nome, email, senha, tipo);
         this.especialidades = especialidades;
     }
