@@ -68,7 +68,7 @@ public class ProfessorController implements UsuarioController
     {
         if(usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class))
         {
-            return usuarioDao.fazerLogin(email,senha); //Direcionar para tela home do usuario???
+            return usuarioDao.fazerLogin(email,senha);
         }
         else
         {

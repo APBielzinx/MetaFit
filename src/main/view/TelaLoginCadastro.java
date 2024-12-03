@@ -86,34 +86,29 @@ public class TelaLoginCadastro implements ActionListener{
             String senha = new String (campoSenha.getPassword());
             AlunoController alunoController = new AlunoController();
             Object usuario = alunoController.fazerLogin(email,senha);
+
             if (usuario != null){
                 if (usuario instanceof Aluno){
                     frame.dispose();
                     new HomeAluno((Aluno) usuario);
-                }
-                }
-            ProfessorController professorController = new ProfessorController();
-            usuario = professorController.fazerLogin(email,senha);
-            if (usuario != null){
-                if (usuario instanceof Professor){
+                } else if (usuario instanceof Professor) {
                     frame.dispose();
-                    new HomeProf((Professor) usuario);
+                     new HomeProf((Professor) usuario);
+
                 }
+            }else {
+                JOptionPane.showMessageDialog(frame,"Usuario não encontrado");
             }
+//            ProfessorController professorController = new ProfessorController();
+//            usuario = professorController.fazerLogin(email,senha);
+//            if (usuario != null){
+//                if (usuario instanceof Professor){
+//                    frame.dispose();
+//                    new HomeProf((Professor) usuario);
+//                }
+//            }
 
             }
         }
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-
-//MAIN ABAIXO
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(TelaLoginCadastro::new);
-    }
 
 }

@@ -91,11 +91,6 @@ frame.setVisible(true);
     botaoConcluirCad.addActionListener(this);
 }
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new TelaCadAluno());
-    
-}
 
     @Override
     public void actionPerformed(ActionEvent e) {

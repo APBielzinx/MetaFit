@@ -50,11 +50,6 @@ public class TelaEscolha implements ActionListener {
         frame.setVisible(true);
     }
 
-        public static void main(String[] args) {
-            //RODAR
-            SwingUtilities.invokeLater(() -> new TelaEscolha());
-        
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

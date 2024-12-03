@@ -1,20 +1,29 @@
 package main.view;
 
+import main.controller.TreinoController;
+import main.model.Professor;
+import main.model.Treino;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.Objects;
 
-public class RegistroTreinoProf {
+public class RegistroTreinoProf implements ActionListener {
     private JButton voltarhomep;
     private JButton registrarT;
     private JTextArea instrucoes;
     private JTextArea objetivo;
     private JTextArea treino;
     private JComboBox<String> especialidadeTreinos; 
-
-    public RegistroTreinoProf(){
-        JFrame frame = new JFrame("Registro Treino");
+    private Professor professor;
+    private String nomeTreino;
+    JFrame frame = new JFrame("Registro Treino");
+    public RegistroTreinoProf(Professor professor, String nomeTreino) {
+        this.nomeTreino = nomeTreino;
+    this.professor = professor;
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1280, 800);  
     frame.setLocationRelativeTo(null);
@@ -56,7 +65,10 @@ public class RegistroTreinoProf {
     especialidadeTreinos.setBounds(460, 30, 500, 30);  // Ajustar a posição e o tamanho
     frame.add(especialidadeTreinos);
 
-      
+
+    voltarhomep.addActionListener(this);
+    registrarT.addActionListener(this);
+
 
     // Ajustando a imagem de fundo
     ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreinoProfessor.jpg");  //caminho da imagem
@@ -75,11 +87,15 @@ public class RegistroTreinoProf {
     frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new RegistroTreinoProf());
-
-
-
-    }   
+    @Override
+    public void actionPerformed(ActionEvent e) {
+     if (e.getSource() == voltarhomep) {
+         new HomeProf(professor);
+     }
+     if (e.getSource() == registrarT) {
+         TreinoController treinoController = new TreinoController();
+         treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
+            JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+     }
+    }
 }

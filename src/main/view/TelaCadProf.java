@@ -81,12 +81,6 @@ public class TelaCadProf implements ActionListener
         botaoConcluirCad.addActionListener(this);
     }
 
-    public static void main(String[] args) {
-        //RODAR
-        SwingUtilities.invokeLater(() -> new TelaCadProf());
-
-    }
-
 
     public void actionPerformed(ActionEvent e)
     {

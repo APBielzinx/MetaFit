@@ -59,6 +59,7 @@ public class CadastroTreinoProf implements ActionListener
     frame.add(fundo);
 
     voltarhomep.addActionListener(this);
+    avancar.addActionListener(this);
 
     
     
@@ -68,8 +69,14 @@ public class CadastroTreinoProf implements ActionListener
 
 
     public void actionPerformed(ActionEvent e) {
-        frame.dispose();
-          new HomeProf(professor);
+       if (e.getSource() == voltarhomep) {
+           frame.dispose();
+           new HomeProf(professor);
+       }
+       if (e.getSource() == avancar) {
+           frame.dispose();
+           new RegistroTreinoProf(professor,nomeTreino.getText());
+       }
 }
 
 

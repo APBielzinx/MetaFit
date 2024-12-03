@@ -5,6 +5,7 @@ import main.controller.utils.Validador;
 import main.dao.AlunoDao;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
+import main.model.Professor;
 
 public class AlunoController implements UsuarioController{
 
@@ -59,11 +60,11 @@ public class AlunoController implements UsuarioController{
     @Override
     public Object fazerLogin(String email, String senha) {
         if (usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Aluno.class)){
-            //Direcionar para tela home do usuario
             return usuarioDao.fazerLogin(email,senha);
-        } else {
-            return null;
+        } else if (usuarioDao.fazerLogin(email, senha) != null && usuarioDao.fazerLogin(email, senha).getClass().equals(Professor.class)){
+            return usuarioDao.fazerLogin(email,senha);
         }
+        return null;
     }
 
 }

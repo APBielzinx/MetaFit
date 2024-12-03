@@ -1,11 +1,16 @@
 package main.view;
 
+import main.controller.TreinoController;
 import main.model.Professor;
+import main.model.Treino;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class HomeProf {
+public class HomeProf implements ActionListener {
     private JButton btconfiguracaop;
     private JButton btsairp;
     private JButton addTreinos;
@@ -32,14 +37,37 @@ public class HomeProf {
         addTreinos = new JButton("Adicionar +");
         addTreinos.setBounds(800, 400, 326, 46);
 
-
+        btconfiguracaop.addActionListener(this);
+        btsairp.addActionListener(this);
+        addTreinos.addActionListener(this);
 
         //add botões
         frame.add(btconfiguracaop);
         frame.add(btsairp);
         frame.add(addTreinos);
 
-       // Ajustando a imagem de fundo
+        TreinoController treinoController = new TreinoController();
+
+        ArrayList<Treino> treinos = (ArrayList<Treino>) treinoController.listarPorProfessor(professor.getId());
+
+        int yPosition = 350; // Posição inicial dos botões
+        for (Treino treino : treinos) {
+            JButton button = new JButton(treino.getNomeTreino());
+            button.setBounds(500, yPosition, 199, 46);
+            frame.add(button);
+
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(frame, "ID do Treino: " + treino.getId());
+                }
+            });
+
+            yPosition += 50; // Incrementa a posição para o próximo botão
+        }
+
+
+        // Ajustando a imagem de fundo
       ImageIcon imagemFundo = new ImageIcon("src/main/view/img/HomeProf.png");  //caminho da imagem
       Image imagem = imagemFundo.getImage();
       Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
@@ -56,6 +84,21 @@ public class HomeProf {
     frame.setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btconfiguracaop) {
+            frame.dispose();
+            new ConfiProf(professor);
+        }
+        if (e.getSource() == btsairp) {
+            frame.dispose();
+            new TelaLoginCadastro();
+        }
+        if (e.getSource() == addTreinos) {
+            frame.dispose();
+            new CadastroTreinoProf(professor);
+        }
+    }
 }
  
 

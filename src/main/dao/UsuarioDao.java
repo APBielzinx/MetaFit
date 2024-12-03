@@ -119,9 +119,6 @@ public class UsuarioDao {
                     JOptionPane.showMessageDialog(null, "email ou senha invalido");
 
                 }
-            }else {
-                JOptionPane.showMessageDialog(null, "Usuario não encontado");
-
             }
 
         }catch(SQLException ex) {

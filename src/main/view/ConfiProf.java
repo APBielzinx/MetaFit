@@ -1,11 +1,17 @@
 package main.view;
 
+import main.controller.AlunoController;
+import main.controller.ProfessorController;
+import main.controller.utils.CriptografarSenha;
+import main.model.Aluno;
 import main.model.Professor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ConfiProf implements ActionListener{
     private JButton botaoAlterarp;
@@ -28,19 +34,19 @@ public class ConfiProf implements ActionListener{
         frame.setLayout(null);
 
         // definindo os JtextField 
-    nomep = new JTextField("Miriam Gama Moura da Silva");  
+    nomep = new JTextField(professor.getNome());
     nomep.setBounds(360, 300, 400, 36);  
     nomep.setForeground(Color.decode("#141831"));
 
-    especialidade = new JTextField("Perda de peso");
+    especialidade = new JTextField(String.valueOf(professor.getEspecialidades()).replace("[", " ").replace("]", ""));
     especialidade.setBounds(360, 350, 400, 36);
     especialidade.setForeground(Color.decode("#141831"));
 
-    emailp = new JTextField("miriam123@gmail.com");
+    emailp = new JTextField(professor.getEmail());
     emailp.setBounds(360, 400, 400, 36);
     emailp.setForeground(Color.decode("#141831"));
 
-    senhap = new JTextField("miriam123");
+    senhap = new JTextField("senha");
     senhap.setBounds(360, 450, 400, 36);
     senhap.setForeground(Color.decode("#141831"));
 
@@ -96,5 +102,35 @@ public class ConfiProf implements ActionListener{
             frame.dispose();
             new HomeProf(professor);
         }
+        if (e.getSource() == excluirContap){
+            ProfessorController professorController= new ProfessorController();
+            professorController.excluir(professor.getId());
+            frame.dispose();
+            new TelaLoginCadastro();
+        }
+        if (e.getSource() == botaoAlterarp){
+            if (!senhap.getText().equals("senha")) {
+                if (especialidade.getText().contains(",")) {
+                    ProfessorController professorController = new ProfessorController();
+                    String textoEspecialidades = especialidade.getText();
+
+                    ArrayList<String> especialidadesList = new ArrayList<>(Arrays.stream(textoEspecialidades.split(","))
+                            .map(String::trim)
+                            .filter(s -> !s.isEmpty())
+                            .toList());
+
+                    this.professor = professorController.atualizar(new Professor(professor.getId(), nomep.getText(), emailp.getText(), CriptografarSenha.criptografarSenha(senhap.getText()), 1, especialidadesList ));
+                    JOptionPane.showMessageDialog(null, "dados atalizados com sucesso!");
+                }else {
+                    JOptionPane.showMessageDialog(null,"é necessario separar as especialidades por ,");
+                }
+
+
+            }else {
+                JOptionPane.showMessageDialog(frame, "Digite sua senha");
+            }
+        }
+
+
     }
 }

@@ -68,10 +68,7 @@ public class AdicionarMeta implements ActionListener
       // Exibir o frame
       frame.setVisible(true);
     }
-    public static void main(String[] args) {
-      //RODAR
-      SwingUtilities.invokeLater(() -> new AdicionarMeta(aluno));
-  }
+
 
     public void actionPerformed(ActionEvent e) 
     {
