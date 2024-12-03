@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class TelaCadAluno implements ActionListener {
     private JButton botaoConcluirCad;
@@ -15,7 +17,7 @@ public class TelaCadAluno implements ActionListener {
     private JTextField email;
     private JTextField peso;
     private JTextField genero;
-    private JTextField senha;
+    private JPasswordField senha;
     JFrame frame = new JFrame("Cadastro do aluno");
 
     //Criando
@@ -36,29 +38,35 @@ public class TelaCadAluno implements ActionListener {
 
 
      // definindo os JtextField 
-    nome = new JTextField("Digite seu nome");  // Texto placeholder
-    nome.setBounds(360, 300, 400, 36);  // Posição e tamanho do campo
-    nome.setForeground(Color.decode("#141831"));  // Cor do texto placeholder em HEX 
-
-    idade = new JTextField("Informe sua idade");
-    idade.setBounds(360, 350, 400, 36);
-    idade.setForeground(Color.decode("#141831"));
-
-    email = new JTextField("Informe seu e-mail");
-    email.setBounds(360, 400, 400, 36);
-    email.setForeground(Color.decode("#141831"));
-
-    peso = new JTextField("Peso");
-    peso.setBounds(360, 450, 400, 36);
-    peso.setForeground(Color.decode("#141831"));
-
-    genero = new JTextField("Gênero (F) OU (M)");
-    genero.setBounds(360, 500, 400, 36);
-    genero.setForeground(Color.decode("#141831"));
-
-    senha = new JTextField("Crie uma senha");
-    senha.setBounds(360, 550, 400, 36);
-    senha.setForeground(Color.decode("#141831"));
+     nome = new JTextField();  // Texto placeholder
+     nome.setBounds(360, 300, 400, 36);  // Posição e tamanho do campo
+     nome.setForeground(Color.decode("#141831"));  // Cor do texto placeholder em HEX
+     setupPlaceholder(nome, "Nome");
+ 
+     idade = new JTextField("Informe sua idade");
+     idade.setBounds(360, 350, 400, 36);
+     idade.setForeground(Color.decode("#141831"));
+     setupPlaceholder(idade, "Idade");
+ 
+     email = new JTextField("Informe seu e-mail");
+     email.setBounds(360, 400, 400, 36);
+     email.setForeground(Color.decode("#141831"));
+     setupPlaceholder(email, "Email");
+ 
+     peso = new JTextField("Peso");
+     peso.setBounds(360, 450, 400, 36);
+     peso.setForeground(Color.decode("#141831"));
+     setupPlaceholder(peso, "Peso");
+ 
+     genero = new JTextField("Gênero (F) OU (M)");
+     genero.setBounds(360, 500, 400, 36);
+     genero.setForeground(Color.decode("#141831"));
+ 
+     senha = new JPasswordField();
+     senha.setBounds(360, 550, 400, 36);
+     senha.setForeground(Color.decode("#141831"));
+     senha.setEchoChar((char) 0);
+     setupPasswordPlaceholder(senha, "Crie uma senha");
 
 
 
@@ -83,12 +91,72 @@ public class TelaCadAluno implements ActionListener {
     fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
     frame.add(fundo);
 
-    
-    
-// Exibir o frame
-frame.setVisible(true);
-
     botaoConcluirCad.addActionListener(this);
+
+    // Remover foco inicial de qualquer campo
+    frame.addWindowFocusListener(new java.awt.event.WindowAdapter() 
+    {
+        public void windowGainedFocus(java.awt.event.WindowEvent e) 
+        {
+            frame.getContentPane().requestFocusInWindow(); // Tira o foco dos campos de texto
+        }
+    });
+
+    // Exibir o frame
+    frame.setVisible(true);
+    }
+
+    private static void setupPlaceholder(JTextField textField, String placeholder) {
+        textField.setText(placeholder);
+        textField.setForeground(Color.GRAY);
+    
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+    
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(placeholder);
+                    textField.setForeground(Color.GRAY);
+                }
+            }
+        });
+    
+    }
+    
+        private static void setupPasswordPlaceholder(JPasswordField passwordField, String placeholder) 
+        {
+            passwordField.setText(placeholder);
+            passwordField.setForeground(Color.GRAY);
+        
+            passwordField.addFocusListener(new FocusListener()
+            {
+                public void focusGained(FocusEvent e) {
+                    if (String.valueOf(passwordField.getPassword()).equals(placeholder)) 
+                    {
+                        passwordField.setText("");
+                        passwordField.setForeground(Color.BLACK);
+                        passwordField.setEchoChar('*'); // Ativar a máscara ao digitar
+                    }
+                }
+        
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (String.valueOf(passwordField.getPassword()).isEmpty()) 
+                    {
+                        passwordField.setText(placeholder);
+                        passwordField.setForeground(Color.GRAY);
+                        passwordField.setEchoChar((char) 0);
+                    }
+                }
+            });
+    
 }
 
 
