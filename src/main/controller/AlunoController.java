@@ -5,10 +5,6 @@ import main.controller.utils.Validador;
 import main.dao.AlunoDao;
 import main.dao.UsuarioDao;
 import main.model.Aluno;
-import main.model.Professor;
-import main.view.TelaLoginCadastro;
-
-import javax.swing.*;
 
 public class AlunoController implements UsuarioController{
 
@@ -41,13 +37,15 @@ public class AlunoController implements UsuarioController{
     }
 
     @Override
-    public void atualizar(Object o) {
+    public Aluno atualizar(Object o) {
         if (o instanceof Aluno aluno){
             if (validador.validarAluno(aluno)){
                 usuarioDao.atualizarUsuario(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getSenha(), aluno.getTipo());
                 alunoDao.atualizarAluno(aluno.getId(), aluno.getIdade(), aluno.getPeso(), aluno.getGenero(), aluno.getPesoMeta());
+                return buscar(aluno.getId());
             }
         }
+        return null;
     }
 
     @Override

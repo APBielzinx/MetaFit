@@ -39,7 +39,7 @@ public class ProfessorController implements UsuarioController
         }
     }
 
-    public void atualizar(Object o)
+    public Professor atualizar(Object o)
     {
         if(o instanceof Professor professor)
         {
@@ -48,9 +48,11 @@ public class ProfessorController implements UsuarioController
             usuarioDao.atualizarUsuario(professor.getId(), professor.getNome(), professor.getEmail(),
             professor.getSenha(), professor.getTipo());
             professorDao.atualizarProfessor(professor.getId(),professor.getEspecialidades());
+
+            return buscar(professor.getId());
             }
         }
-        
+        return null;
     }
 
     public void excluir(String id)

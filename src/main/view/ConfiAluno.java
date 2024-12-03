@@ -54,7 +54,7 @@ public class ConfiAluno implements ActionListener {
     genero.setBounds(360, 500, 400, 36);
     genero.setForeground(Color.decode("#141831"));
 
-    senha = new JTextField();
+    senha = new JTextField("senha");
     senha.setBounds(360, 550, 400, 36);
     senha.setForeground(Color.decode("#141831"));
 
@@ -115,15 +115,11 @@ public class ConfiAluno implements ActionListener {
         if (e.getSource() == botaoAlterar) {
 
 
-            if (!senha.equals("Digite sua senha")) {
+            if (!senha.getText().equals("senha")) {
                 AlunoController alunoController = new AlunoController();
 
-                if (!aluno.getSenha().equals(CriptografarSenha.criptografarSenha(senha.getText()))) {
-                    alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), CriptografarSenha.criptografarSenha(senha.getText()), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
-                } else {
-                    alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
-
-                }
+                this.aluno = alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), CriptografarSenha.criptografarSenha(senha.getText()), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
+                JOptionPane.showMessageDialog(null, "dados atalizados com sucesso!");
             }else {
                 JOptionPane.showMessageDialog(frame, "Digite sua senha");
             }
@@ -139,6 +135,7 @@ public class ConfiAluno implements ActionListener {
 
         if (e.getSource() == voltarhome) {
             frame.dispose();
+            System.out.println(aluno);
             new HomeAluno(aluno);
         }
 

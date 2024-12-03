@@ -4,7 +4,7 @@ public interface UsuarioController {
 
     Object cadastrar(Object o);
     Object buscar(String id);
-    void atualizar(Object o);
+    Object atualizar(Object o);
     void excluir(String id);
     Object fazerLogin(String email, String senha);
 }
