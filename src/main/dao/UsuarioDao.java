@@ -80,7 +80,8 @@ public class UsuarioDao {
             stmt.setString(1, idUsuario);
             stmt.executeUpdate();
 
-            System.out.println("Usuário excluído com sucesso!");
+
+            JOptionPane.showMessageDialog(null,"Usuário excluído com sucesso!");
 
         }  catch(SQLException e) {
             try {

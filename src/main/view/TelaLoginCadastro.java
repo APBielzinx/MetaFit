@@ -89,7 +89,6 @@ public class TelaLoginCadastro implements ActionListener{
             if (usuario != null){
                 if (usuario instanceof Aluno){
                     frame.dispose();
-                    System.out.println(usuario);
                     new HomeAluno((Aluno) usuario);
                 }else if (usuario instanceof Professor){
                     frame.dispose();

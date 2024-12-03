@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TreinosAluno {
+public class TreinosAluno implements ActionListener {
     private JButton bttreinos;
     private JButton btconfiguracao;
     private JButton btmetas;
@@ -93,6 +93,13 @@ public class TreinosAluno {
        frame.add(btmetas);
        frame.add(btsair);
        frame.add(voltarhome);
+
+       bttreinos.addActionListener(this);
+       btconfiguracao.addActionListener(this);
+       btmetas.addActionListener(this);
+       btsair.addActionListener(this);
+       voltarhome.addActionListener(this);
+
        // Ajustando a imagem de fundo
     ImageIcon imagemFundo = new ImageIcon("src/main/view/img/TreinosAlunoo.png");  //caminho da imagem
     Image imagem = imagemFundo.getImage();
@@ -110,6 +117,29 @@ public class TreinosAluno {
 frame.setVisible(true);
 }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == voltarhome) {
+            frame.dispose();
+            new HomeAluno(aluno);
+        }
+        if (e.getSource() == bttreinos) {
+            frame.dispose();
+            new TreinosAluno(aluno);
+        }
+        if (e.getSource() == btconfiguracao) {
+            frame.dispose();
+            new ConfiAluno(aluno);
+        }
+        if (e.getSource() == btmetas) {
+            frame.dispose();
+            new MetasAluno(aluno);
+        }
+        if (e.getSource() == btsair) {
+            frame.dispose();
+            new TelaLoginCadastro();
+        }
+    }
 }
      
 

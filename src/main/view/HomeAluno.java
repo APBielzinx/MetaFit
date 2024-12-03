@@ -1,5 +1,6 @@
 package main.view;
 
+import main.controller.TreinoController;
 import main.model.Aluno;
 import main.model.Treino;
 
@@ -21,7 +22,8 @@ public class HomeAluno implements ActionListener {
      //Criando
      public HomeAluno(Aluno aluno) {
         this.aluno = aluno;
-         ArrayList<Treino> treinos = new ArrayList<>();
+
+
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);
@@ -59,10 +61,9 @@ public class HomeAluno implements ActionListener {
 //       frame.add(btT3);
 //
 //
-       treinos.add(new Treino("sdad56asd","1", "Treino A", Arrays.asList("a", "b", "c"), "Descrição 1", "Outro dado"));
-       treinos.add(new Treino("sdadfedasd", "2", "Treino B", Arrays.asList("a", "b", "c"), "Descrição 2", "Outro dado"));
-       treinos.add(new Treino("sdadfdasd","3", "Treino C", Arrays.asList("a", "b", "c"), "Descrição 3", "Outro dado"));
+         TreinoController treinoController = new TreinoController();
 
+         ArrayList<Treino> treinos = (ArrayList<Treino>) treinoController.listarTodos();
 
          int yPosition = 300; // Posição inicial dos botões
          for (Treino treino : treinos) {
@@ -120,6 +121,10 @@ frame.setVisible(true);
          if (e.getSource() == btconfiguracao) {
              frame.dispose();
              new ConfiAluno(aluno);
+         }
+         if (e.getSource() == btmetas) {
+             frame.dispose();
+             new MetasAluno(aluno);
          }
 
     }

@@ -1,5 +1,6 @@
 package main.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import main.controller.utils.Validador;
@@ -49,7 +50,7 @@ public class TreinoController {
         throw new IllegalArgumentException("ID do professor inválido");
     }
 
-    public List<Treino> listarTodos() {
+    public ArrayList<Treino> listarTodos() {
             return treinoDao.listarTreinos();
     }
 

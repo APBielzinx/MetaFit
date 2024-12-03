@@ -71,6 +71,6 @@ public class Aluno extends Usuario
     public String toString()
     {
         return "\nNome: " + super.getNome() + "\nEmail: " + super.getEmail() 
-        + "\nIdade: " + idade + "\nGênero: " + genero;
+        + "\nIdade: " + idade + "\nGênero: " + genero + "\npeso" + peso + "\npesoMeta" + pesoMeta;
     }
 }

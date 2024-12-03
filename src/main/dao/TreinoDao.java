@@ -110,12 +110,12 @@ public class TreinoDao {
         }
     }
 
-    public List<Treino> listarTreinos() {
+    public ArrayList<Treino> listarTreinos() {
         conn = ConnFactory.getConn();
         String sqlSelect = "SELECT * FROM Treino";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Treino> treinos = new ArrayList<>();
+        ArrayList<Treino> treinos = new ArrayList<>();
 
         try {
             stmt = conn.prepareStatement(sqlSelect);
