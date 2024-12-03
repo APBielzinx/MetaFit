@@ -20,7 +20,7 @@ public class HomeAluno implements ActionListener {
     JFrame frame = new JFrame("Home Aluno");
      //Criando
      public HomeAluno(Aluno aluno) {
-         this.aluno = aluno;
+        this.aluno = aluno;
          ArrayList<Treino> treinos = new ArrayList<>();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

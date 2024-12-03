@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConfiProf {
+public class ConfiProf implements ActionListener{
     private JButton botaoAlterarp;
     private JButton voltarhomep;
     private JButton excluirContap;
@@ -13,9 +13,10 @@ public class ConfiProf {
     private JTextField especialidade;
     private JTextField emailp;
     private JTextField senhap;
+    private JFrame frame;
 
     public ConfiProf() {
-        JFrame frame = new JFrame("Configurações");
+        frame = new JFrame("Configurações");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -72,6 +73,11 @@ public class ConfiProf {
      JLabel fundo = new JLabel(imagemFundo);
      fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
      frame.add(fundo);
+
+    voltarhomep.addActionListener(this);
+    botaoAlterarp.addActionListener(this);
+    excluirContap.addActionListener(this);
+
  
      
      
@@ -83,5 +89,14 @@ public class ConfiProf {
          //RODAR
          SwingUtilities.invokeLater(() -> new ConfiProf());
      
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == voltarhomep)
+        {
+            frame.dispose();
+            new HomeProf();
+        }
     }
 }

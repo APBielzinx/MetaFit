@@ -5,16 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CadastroTreinoProf {
+public class CadastroTreinoProf implements ActionListener
+{
     private JButton avancar;
     private JTextField nomeTreino;
     private JTextArea objetivo;
     private JButton voltarhomep;
+    private JFrame frame;
 
 
     
-    public CadastroTreinoProf(){
-    JFrame frame = new JFrame("Cadastro inicial do Treino");
+    public CadastroTreinoProf()
+    {
+    frame = new JFrame("Cadastro inicial do Treino");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1280, 800);  
     frame.setLocationRelativeTo(null);
@@ -36,11 +39,7 @@ public class CadastroTreinoProf {
     nomeTreino.setBounds(360, 240, 400, 36);
 
     objetivo = new JTextArea("");  
-    objetivo.setBounds(360, 290, 500, 100); 
-    
-   
-
-
+    objetivo.setBounds(360, 290, 500, 100);
    
     frame.add(nomeTreino);
     frame.add(objetivo);
@@ -56,15 +55,24 @@ public class CadastroTreinoProf {
     fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
     frame.add(fundo);
 
+    voltarhomep.addActionListener(this);
+
     
     
     // Exibir o frame
     frame.setVisible(true);
-    }
+}
+
 
     public static void main(String[] args) {
         //RODAR
         SwingUtilities.invokeLater(() -> new CadastroTreinoProf());
 
     }
+    public void actionPerformed(ActionEvent e) {
+        frame.dispose();
+          new HomeProf();
+}
+
+
 }

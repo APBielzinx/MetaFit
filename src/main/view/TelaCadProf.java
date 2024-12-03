@@ -10,12 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TelaCadProf implements ActionListener
 {
     private JButton botaoConcluirCad;
     private JTextField nome, especialidade, email, senha;
     private JFrame frame;
+    private Professor professor;
     
     //Criando
     public TelaCadProf()
@@ -90,7 +93,8 @@ public class TelaCadProf implements ActionListener
         if (e.getSource() == botaoConcluirCad) 
         {
             ProfessorController professorController  = new ProfessorController();
-            Professor professor = professorController.cadastrar(new Professor(nome.getText(), especialidade.getText(), email.getText(), senha.getText(), 1, null));
+            Professor professor = professorController.cadastrar(new Professor(nome.getText(), email.getText(), senha.getText(), 1, Arrays.asList(especialidade.getText())));
+            System.out.println(professor);
             if (professor != null) 
             {
                 JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
