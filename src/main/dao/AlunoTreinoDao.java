@@ -14,7 +14,7 @@ public class AlunoTreinoDao {
 
     private Connection conn = ConnFactory.getConn();
 
-    public void cadastrarAlunoEmTreino(String idAluno, String idTreino) {
+    public boolean cadastrarAlunoEmTreino(String idAluno, String idTreino) {
         conn = ConnFactory.getConn();
         String sql = "INSERT INTO Aluno_Treino (idAluno, idTreino) VALUES (?, ?)";
         PreparedStatement stmt = null;
@@ -24,8 +24,10 @@ public class AlunoTreinoDao {
             stmt.setString(1, idAluno);
             stmt.setString(2, idTreino);
             stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar aluno no treino: " + e.getMessage());
+            return false;
         } finally {
             ConnFactory.closeConn(conn, stmt);
         }

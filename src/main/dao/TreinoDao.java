@@ -54,6 +54,7 @@ public class TreinoDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
+                System.out.println( "inst"+  rs.getString("instrucoes"));
                 return new Treino(
                         rs.getString("idTreino"),
                         rs.getString("nome"),

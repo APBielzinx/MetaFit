@@ -28,7 +28,6 @@ public class InscricaoAluno implements ActionListener {
     public InscricaoAluno(String idTreino, Aluno aluno) {
         this.aluno = aluno;
         this.idTreino = idTreino;
-        System.out.println(aluno.getId()+"\n"+idTreino);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -94,8 +93,12 @@ public class InscricaoAluno implements ActionListener {
         if (e.getSource() == inscricao) {
             AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
 
-            alunoTreinoController.cadastrarAlunoEmTreino(aluno.getId(), idTreino);
-            JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
+            if (alunoTreinoController.cadastrarAlunoEmTreino(aluno.getId(), idTreino)){
+                JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "Não foi possivel cadastrar aluno!\nverifique se você já esta cadastrado nesse treino","Erro",JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }
 }

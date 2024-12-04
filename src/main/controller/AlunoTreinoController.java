@@ -10,9 +10,9 @@ public class AlunoTreinoController {
 
     private final AlunoTreinoDao alunoTreinoDao = new AlunoTreinoDao();
 
-    public void cadastrarAlunoEmTreino(String idAluno, String idTreino) {
+    public boolean cadastrarAlunoEmTreino(String idAluno, String idTreino) {
         if (idAluno != null && !idAluno.isEmpty() && idTreino != null && !idTreino.isEmpty()) {
-            alunoTreinoDao.cadastrarAlunoEmTreino(idAluno, idTreino);
+          return   alunoTreinoDao.cadastrarAlunoEmTreino(idAluno, idTreino);
         } else {
             throw new IllegalArgumentException("ID do aluno ou do treino inválido");
         }

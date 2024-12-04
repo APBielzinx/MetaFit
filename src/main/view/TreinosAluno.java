@@ -79,7 +79,8 @@ public class TreinosAluno implements ActionListener {
              button.addActionListener(new ActionListener() {
                  @Override
                  public void actionPerformed(ActionEvent e) {
-                     JOptionPane.showMessageDialog(frame, "ID do Treino: " + treino.getId());
+                  frame.dispose();
+                  new VisualizarTreinoAluno(aluno,treino.getId());
                  }
              });
 

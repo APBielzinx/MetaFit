@@ -124,13 +124,15 @@ public class RegistroTreinoProf implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
      if (e.getSource() == voltarhomep) {
+         frame.dispose();
          new HomeProf(professor);
      }
      if (e.getSource() == registrarT) {
 
          TreinoController treinoController = new TreinoController();
          treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
-            JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+         JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+
      }
     }
 }

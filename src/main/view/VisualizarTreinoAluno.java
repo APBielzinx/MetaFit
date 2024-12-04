@@ -1,44 +1,43 @@
 package main.view;
 
 
+import main.controller.AlunoTreinoController;
 import main.controller.TreinoController;
-import main.model.Professor;
+import main.model.Aluno;
 import main.model.Treino;
-
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
-public class AtualizarExcluirTreino implements ActionListener {
-    private JButton voltarhomep, btnAtualizar, btnExcluir;
+public class VisualizarTreinoAluno implements ActionListener {
+    private JButton voltarhomea, btnExcluir;
     private JTextArea instrucoes;
     private JTextArea objetivo;
     private JTextArea treino;
     private JTextField txtNome;
-    private JComboBox<String> especialidadeTreinos; 
-    private Professor professor;
+    private JComboBox<String> especialidadeTreinos;
+    private Aluno aluno;
     private String idTreino;
-    
-    JFrame frame = new JFrame("Atualizar ou excluir Treino");
 
-    public AtualizarExcluirTreino(Professor professor, String idTreino) {
+    JFrame frame = new JFrame("Visualizar treino");
+
+    public VisualizarTreinoAluno(Aluno aluno, String idTreino) {
 
         this.idTreino = idTreino;
-        this.professor = professor;
+        this.aluno = aluno;
 
 
         TreinoController treinoController = new TreinoController();
         Treino treinoBuscado = treinoController.buscar(idTreino);
-        System.out.println(treinoBuscado);
+
         if (treinoBuscado == null) {
             JOptionPane.showMessageDialog(frame,"Treino não encontrado");
             frame.dispose();
-            new HomeProf(professor);
+            new HomeAluno(aluno);
         }
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,13 +48,9 @@ public class AtualizarExcluirTreino implements ActionListener {
         frame.setLayout(null);
 
         //definindo botões
-        voltarhomep = new JButton("<");
-        voltarhomep.setBounds(10, 30, 50, 40);
-        frame.add(voltarhomep);
-
-        btnAtualizar = new JButton("Atualizar");
-        btnAtualizar.setBounds(200, 710, 326, 46);
-        frame.add(btnAtualizar);
+        voltarhomea = new JButton("<");
+        voltarhomea.setBounds(10, 30, 50, 40);
+        frame.add(voltarhomea);
 
         btnExcluir = new JButton("Excluir");
         btnExcluir.setBounds(600, 710, 326, 46);
@@ -83,18 +78,13 @@ public class AtualizarExcluirTreino implements ActionListener {
         frame.add(txtNome);
 
         // Criar o JComboBox para selecionar a especialidade
-        String[] especialidades = {
-                "Treino para Hipertrofia Muscular",
-                "Treino para Perda de Peso",
-                "FullBody"
-        };
-        especialidadeTreinos = new JComboBox<>(especialidades);
+
+        especialidadeTreinos = new JComboBox<>(treinoBuscado.getEspecialidadeTreino().toArray(new String[0]));
         especialidadeTreinos.setBounds(460, 30, 500, 30);  // Ajustar a posição e o tamanho
         frame.add(especialidadeTreinos);
 
 
-        voltarhomep.addActionListener(this);
-        btnAtualizar.addActionListener(this);
+        voltarhomea.addActionListener(this);
         btnExcluir.addActionListener(this);
 
 
@@ -124,21 +114,17 @@ public class AtualizarExcluirTreino implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-     if (e.getSource() == voltarhomep) {
+     if (e.getSource() == voltarhomea) {
          frame.dispose();
-         new HomeProf(professor);
+         new HomeAluno(aluno);
      }
-     if (e.getSource() == btnAtualizar) {
-         TreinoController treinoController = new TreinoController();
-         treinoController.atualizar(new Treino(idTreino, txtNome.getText(), instrucoes.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(),treino.getText()));
-         JOptionPane.showMessageDialog(frame,"Treino atualizado com sucesso");
-     }
+
      if (e.getSource() == btnExcluir){
-         TreinoController treinoController = new TreinoController();
-         treinoController.excluir(idTreino);
+         AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
+         alunoTreinoController.removerAlunoDoTreino(aluno.getId(), idTreino);
          JOptionPane.showMessageDialog(frame,"Treino excluido com sucesso");
          frame.dispose();
-         new HomeProf(professor);
+         new HomeAluno(aluno);
      }
     }
 }
