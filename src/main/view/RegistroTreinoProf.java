@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Objects;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class RegistroTreinoProf implements ActionListener {
     private JButton voltarhomep;
@@ -41,15 +43,18 @@ public class RegistroTreinoProf implements ActionListener {
     frame.add(registrarT);
 
     //definindo os JtextArea
-    objetivo = new JTextArea("Digite o objetivo");  
-    objetivo.setBounds(50, 99, 500, 100); 
+    objetivo = new JTextArea();  
+    objetivo.setBounds(50, 99, 500, 100);
+    setupPlaceholder(objetivo, "Digite o objetivo");
 
 
-    instrucoes = new JTextArea("Digite as Instruções");  
-    instrucoes.setBounds(50, 250, 300, 300); 
+    instrucoes = new JTextArea();  
+    instrucoes.setBounds(50, 250, 300, 300);
+    setupPlaceholder(instrucoes, "Digite as Instruções");
 
-    treino = new JTextArea("Digite o Treino");  
-    treino.setBounds(700, 99, 500, 600); 
+    treino = new JTextArea();  
+    treino.setBounds(700, 99, 500, 600);
+    setupPlaceholder(treino, "Digite o Treino");
 
     frame.add(objetivo);
     frame.add(instrucoes);
@@ -81,21 +86,53 @@ public class RegistroTreinoProf implements ActionListener {
     fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
     frame.add(fundo);
 
-    
+    frame.addWindowFocusListener(new java.awt.event.WindowAdapter() 
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent e) 
+            {
+                frame.getContentPane().requestFocusInWindow();
+            }
+        });
     
     // Exibir o frame
     frame.setVisible(true);
     }
 
+    private static void setupPlaceholder(JTextArea textArea, String placeholder) {
+        textArea.setText(placeholder);
+        textArea.setForeground(Color.GRAY);
+    
+        textArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textArea.getText().equals(placeholder)) {
+                    textArea.setText("");
+                    textArea.setForeground(Color.BLACK);
+                }
+            }
+    
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textArea.getText().isEmpty()) {
+                    textArea.setText(placeholder);
+                    textArea.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
      if (e.getSource() == voltarhomep) {
+         frame.dispose();
          new HomeProf(professor);
      }
      if (e.getSource() == registrarT) {
+
          TreinoController treinoController = new TreinoController();
          treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
-            JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+         JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+
      }
     }
 }

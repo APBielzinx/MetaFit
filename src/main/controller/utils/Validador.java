@@ -42,7 +42,7 @@ public class Validador {
         // Exibir erros, se existirem
         if (!erros.isEmpty()) {
             JOptionPane.showMessageDialog(null, erros.toString(),"Erro", JOptionPane.ERROR_MESSAGE);
-            return false; // Indica que a validação falhou
+            return false; // Indica que  validação falhou
         }
 
         return true;

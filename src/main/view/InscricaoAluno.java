@@ -1,6 +1,9 @@
 package main.view;
 
+import main.controller.AlunoController;
+import main.controller.AlunoTreinoController;
 import main.controller.TreinoController;
+import main.model.Aluno;
 import main.model.Professor;
 import main.model.Treino;
 
@@ -11,19 +14,20 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Objects;
 
-public class InscricaoAluno {
+public class InscricaoAluno implements ActionListener {
     private JButton voltarhome;
     private JButton inscricao;
     private JTextArea instrucoes;
     private JTextArea objetivo;
     private JTextArea treino;
     private JLabel especialidadeTreinos; 
-    private Professor professor;
-    private String nomeTreino;
-
+    private  Aluno aluno;
+    private String idTreino;
+    JFrame frame = new JFrame("Inscrição");
     //Criando
-    public InscricaoAluno() {
-        JFrame frame = new JFrame("Inscrição");
+    public InscricaoAluno(String idTreino, Aluno aluno) {
+        this.aluno = aluno;
+        this.idTreino = idTreino;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -46,6 +50,10 @@ public class InscricaoAluno {
     //add botão
     frame.add(voltarhome);
     frame.add(inscricao);
+
+    voltarhome.addActionListener(this);
+    inscricao.addActionListener(this);
+
 
 
     objetivo = new JTextArea("Objetivo:");  
@@ -74,5 +82,23 @@ public class InscricaoAluno {
    frame.setVisible(true);
 
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == voltarhome) {
+            frame.dispose();
+            new HomeAluno(aluno);
+        }
+        if (e.getSource() == inscricao) {
+            AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
+
+            if (alunoTreinoController.cadastrarAlunoEmTreino(aluno.getId(), idTreino)){
+                JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "Não foi possivel cadastrar aluno!\nverifique se você já esta cadastrado nesse treino","Erro",JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
     }
 }

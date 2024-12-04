@@ -14,7 +14,7 @@ public class AlunoTreinoDao {
 
     private Connection conn = ConnFactory.getConn();
 
-    public void cadastrarAlunoEmTreino(String idAluno, String idTreino) {
+    public boolean cadastrarAlunoEmTreino(String idAluno, String idTreino) {
         conn = ConnFactory.getConn();
         String sql = "INSERT INTO Aluno_Treino (idAluno, idTreino) VALUES (?, ?)";
         PreparedStatement stmt = null;
@@ -24,8 +24,10 @@ public class AlunoTreinoDao {
             stmt.setString(1, idAluno);
             stmt.setString(2, idTreino);
             stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar aluno no treino: " + e.getMessage());
+            return false;
         } finally {
             ConnFactory.closeConn(conn, stmt);
         }
@@ -64,9 +66,8 @@ public class AlunoTreinoDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, idAluno);
             rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                while (rs.next()) {
+                     while (rs.next()) {
+                    System.out.println(  rs.getString("nome"));
                     Treino treino = new Treino(
                             rs.getString("idTreino"),
                             rs.getString("nome"),
@@ -77,9 +78,6 @@ public class AlunoTreinoDao {
                     );
                     treinos.add(treino);
                 }
-            }else {
-                JOptionPane.showMessageDialog(null,"Nenhum treino encontrado","Atenção",JOptionPane.WARNING_MESSAGE);
-            }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar treinos do aluno: " + e.getMessage());
         } finally {
