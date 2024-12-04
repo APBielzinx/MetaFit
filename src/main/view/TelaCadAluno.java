@@ -16,7 +16,7 @@ public class TelaCadAluno implements ActionListener {
     private JTextField idade;
     private JTextField email;
     private JTextField peso;
-    private JTextField genero;
+    private JComboBox<String> genero;
     private JPasswordField senha;
     JFrame frame = new JFrame("Cadastro do aluno");
 
@@ -58,10 +58,20 @@ public class TelaCadAluno implements ActionListener {
      peso.setForeground(Color.decode("#141831"));
      setupPlaceholder(peso, "Peso");
  
-     genero = new JTextField("Gênero (F) OU (M)");
+     genero = new JComboBox<>(new String[]{"Selecione um gênero", "M", "F"}); // combox com placeholder
      genero.setBounds(360, 500, 400, 36);
      genero.setForeground(Color.decode("#141831"));
- 
+
+     // Adicionando um listener para detectar quando uma opção é selecionada
+     genero.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if (genero.getSelectedIndex() == 0) {
+        } else {
+        }
+    }
+});
      senha = new JPasswordField();
      senha.setBounds(360, 550, 400, 36);
      senha.setForeground(Color.decode("#141831"));
@@ -165,7 +175,7 @@ public class TelaCadAluno implements ActionListener {
 
         if (e.getSource() == botaoConcluirCad) {
             AlunoController alunoController = new AlunoController();
-            Aluno aluno =  alunoController.cadastrar(new Aluno(nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
+            Aluno aluno =  alunoController.cadastrar(new Aluno(nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), (String) genero.getSelectedItem(), Double.parseDouble(peso.getText())));
             if (aluno != null) {
                 JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
                 frame.dispose();
@@ -176,4 +186,3 @@ public class TelaCadAluno implements ActionListener {
     }
 }
    
-
