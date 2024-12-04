@@ -11,7 +11,6 @@ public class CadastroTreinoProf implements ActionListener
 {
     private JButton avancar;
     private JTextField nomeTreino;
-    private JTextArea objetivo;
     private JButton voltarhomep;
     JFrame frame = new JFrame("Cadastro inicial do Treino");
     private Professor professor;
@@ -41,11 +40,9 @@ public class CadastroTreinoProf implements ActionListener
     nomeTreino = new JTextField(" ");  
     nomeTreino.setBounds(360, 240, 400, 36);
 
-    objetivo = new JTextArea("");  
-    objetivo.setBounds(360, 290, 500, 100);
+    
    
     frame.add(nomeTreino);
-    frame.add(objetivo);
 
     // Ajustando a imagem de fundo
     ImageIcon imagemFundo = new ImageIcon("src/main/view/img/CadastroTreinoProfessor.png");  //caminho da imagem
