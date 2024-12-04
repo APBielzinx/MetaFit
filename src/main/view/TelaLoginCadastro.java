@@ -164,14 +164,6 @@ public class TelaLoginCadastro implements ActionListener{
             }else {
                 JOptionPane.showMessageDialog(frame,"Usuario não encontrado");
             }
-//            ProfessorController professorController = new ProfessorController();
-//            usuario = professorController.fazerLogin(email,senha);
-//            if (usuario != null){
-//                if (usuario instanceof Professor){
-//                    frame.dispose();
-//                    new HomeProf((Professor) usuario);
-//                }
-//            }
 
             }
         }
