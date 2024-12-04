@@ -1,5 +1,6 @@
 package main.view;
 
+import main.main;
 import main.controller.TreinoController;
 import main.model.Professor;
 import main.model.Treino;
@@ -13,20 +14,20 @@ import java.util.Objects;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class RegistroTreinoProf implements ActionListener {
-    private JButton voltarhomep;
-    private JButton registrarT;
+public class AtualizarExcluirTreino implements ActionListener {
+    private JButton voltarhomep, btnAtualizar, btnExcluir;
     private JTextArea instrucoes;
     private JTextArea objetivo;
     private JTextArea treino;
+    private JTextField txtNome;
     private JComboBox<String> especialidadeTreinos; 
     private Professor professor;
-    private String nomeTreino;
+    private String idTreino;
+    
     JFrame frame = new JFrame("Registro Treino");
-    public RegistroTreinoProf(Professor professor, String nomeTreino) {
-        this.nomeTreino = nomeTreino;
-    this.professor = professor;
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    public AtualizarExcluirTreino() {
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1280, 800);  
     frame.setLocationRelativeTo(null);
     frame.setResizable(false);
@@ -38,27 +39,33 @@ public class RegistroTreinoProf implements ActionListener {
     voltarhomep.setBounds(10, 30, 50, 40);
     frame.add(voltarhomep);
     
-    registrarT = new JButton("Registrar");
-    registrarT.setBounds(500, 710, 326, 46);
-    frame.add(registrarT);
+    btnAtualizar = new JButton("Atualizar");
+    btnAtualizar.setBounds(200, 710, 326, 46);
+    frame.add(btnAtualizar);
+
+    btnExcluir = new JButton("Excluir");
+    btnExcluir.setBounds(600, 710, 326, 46);
+    frame.add(btnExcluir);
+
 
     //definindo os JtextArea
     objetivo = new JTextArea();  
-    objetivo.setBounds(50, 99, 500, 100);
-    setupPlaceholder(objetivo, "Digite o objetivo");
+    objetivo.setBounds(50, 550, 500, 100);
+
+    txtNome = new JTextField();
+    txtNome.setBounds(50,130,300,30);
 
 
     instrucoes = new JTextArea();  
-    instrucoes.setBounds(50, 250, 300, 300);
-    setupPlaceholder(instrucoes, "Digite as Instruções");
+    instrucoes.setBounds(50, 200, 300, 300);
 
     treino = new JTextArea();  
     treino.setBounds(700, 99, 500, 600);
-    setupPlaceholder(treino, "Digite o Treino");
 
     frame.add(objetivo);
     frame.add(instrucoes);
     frame.add(treino);
+    frame.add(txtNome);
 
      // Criar o JComboBox para selecionar a especialidade
      String[] especialidades = {
@@ -72,7 +79,8 @@ public class RegistroTreinoProf implements ActionListener {
 
 
     voltarhomep.addActionListener(this);
-    registrarT.addActionListener(this);
+    btnAtualizar.addActionListener(this);
+    btnExcluir.addActionListener(this);
 
 
     // Ajustando a imagem de fundo
@@ -98,39 +106,22 @@ public class RegistroTreinoProf implements ActionListener {
     frame.setVisible(true);
     }
 
-    private static void setupPlaceholder(JTextArea textArea, String placeholder) {
-        textArea.setText(placeholder);
-        textArea.setForeground(Color.GRAY);
-    
-        textArea.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textArea.getText().equals(placeholder)) {
-                    textArea.setText("");
-                    textArea.setForeground(Color.BLACK);
-                }
-            }
-    
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (textArea.getText().isEmpty()) {
-                    textArea.setText(placeholder);
-                    textArea.setForeground(Color.GRAY);
-                }
-            }
-        });
+    public AtualizarExcluirTreino(Professor professor, String idTreino) {
+        this.idTreino = idTreino;
+    this.professor = professor;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
      if (e.getSource() == voltarhomep) {
          new HomeProf(professor);
      }
-     if (e.getSource() == registrarT) {
+    }
 
-         TreinoController treinoController = new TreinoController();
-         treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
-            JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
-     }
+    public static void main(String[] args) {
+        new AtualizarExcluirTreino();
     }
 }
+
+

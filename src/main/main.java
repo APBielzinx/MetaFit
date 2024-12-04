@@ -1,5 +1,6 @@
 package main;
 
+import main.view.AtualizarExcluirTreino;
 import main.view.TelaLoginCadastro;
 
 
