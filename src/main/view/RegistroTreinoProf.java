@@ -93,6 +93,7 @@ public class RegistroTreinoProf implements ActionListener {
          new HomeProf(professor);
      }
      if (e.getSource() == registrarT) {
+
          TreinoController treinoController = new TreinoController();
          treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
             JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");

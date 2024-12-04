@@ -74,7 +74,8 @@ public class HomeAluno implements ActionListener {
              button.addActionListener(new ActionListener() {
                  @Override
                  public void actionPerformed(ActionEvent e) {
-                     JOptionPane.showMessageDialog(frame, "ID do Treino: " + treino.getId());
+                     frame.dispose();
+                     new InscricaoAluno(treino.getId(), aluno);
                  }
              });
 
@@ -126,6 +127,9 @@ frame.setVisible(true);
              frame.dispose();
              new MetasAluno(aluno);
          }
+         if (e.getSource() == btsair) {
+             frame.dispose();
+             new TelaLoginCadastro();         }
 
     }
 }
