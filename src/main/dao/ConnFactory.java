@@ -5,7 +5,7 @@ import java.sql.*;
 public  class ConnFactory
 {   private static final String URL  =   "jdbc:mysql://localhost:3306/metafit"; // nome do bd
     private static final String USER =   "root";
-    private static final String PASS =   "010203cd";
+    private static final String PASS =   "drift4life";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String ERROBD = "Erro na conexão com o Banco de Dados: "; 
 

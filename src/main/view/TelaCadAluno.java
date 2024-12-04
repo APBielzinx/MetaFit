@@ -58,7 +58,7 @@ public class TelaCadAluno implements ActionListener {
      peso.setForeground(Color.decode("#141831"));
      setupPlaceholder(peso, "Peso");
  
-     genero = new JComboBox<>(new String[]{"Selecione um gênero", "M", "F"}); // combox com placeholder
+     genero = new JComboBox<>(new String[]{"Selecione um gênero", "Masculino", "Feminino"}); // combox com placeholder
      genero.setBounds(360, 500, 400, 36);
      genero.setForeground(Color.decode("#141831"));
 
@@ -173,16 +173,28 @@ public class TelaCadAluno implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == botaoConcluirCad) {
+        
+
+        if (e.getSource() == botaoConcluirCad) 
+        {
             AlunoController alunoController = new AlunoController();
-            Aluno aluno =  alunoController.cadastrar(new Aluno(nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), (String) genero.getSelectedItem(), Double.parseDouble(peso.getText())));
+            String generoSelecionado = "";
+            if(genero.getSelectedItem().toString().equals("Masculino"))
+            {
+                generoSelecionado = "M";
+            }
+            else
+            {
+                generoSelecionado = "F";
+            }
+
+            Aluno aluno =  alunoController.cadastrar(new Aluno(nome.getText(), email.getText(), senha.getText(), 2, Integer.parseInt(idade.getText()), (String) generoSelecionado, Double.parseDouble(peso.getText())));
             if (aluno != null) {
                 JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
                 frame.dispose();
                     new TelaLoginCadastro();
             }
         }
-
     }
 }
    

@@ -12,9 +12,10 @@ import java.util.ArrayList;
 
 public class HomeProf implements ActionListener {
     private JButton btconfiguracaop;
-    private JButton btsairp;
+    private JButton btsairp, btnExcluir;
     private JButton addTreinos;
     private Professor professor;
+    private Treino treino;
     JFrame frame = new JFrame("Home Professor");
 
     public HomeProf(Professor usuario) {
@@ -97,6 +98,12 @@ public class HomeProf implements ActionListener {
         if (e.getSource() == addTreinos) {
             frame.dispose();
             new CadastroTreinoProf(professor);
+        }
+        if(e.getSource() == btnExcluir)
+        {
+            TreinoController treinoController = new TreinoController();
+            treinoController.excluir(treino.getId());
+            frame.dispose();
         }
     }
 }
