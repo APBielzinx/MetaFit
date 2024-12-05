@@ -88,7 +88,7 @@ public class VisualizarTreinoAluno implements ActionListener {
 
 
         // Ajustando a imagem de fundo
-        ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreinoProfessor.jpg");  //caminho da imagem
+        ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreino.png");  //caminho da imagem
         Image imagem = imagemFundo.getImage();
         Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         imagemFundo = new ImageIcon(imagemRedimensionada);
@@ -103,7 +103,7 @@ public class VisualizarTreinoAluno implements ActionListener {
 
       // Criar um JLabel com a imagem
       JLabel imageLabel = new JLabel(new ImageIcon(voltar));
-      imageLabel.setBounds(90, 130, 50, 40); // Posição (x, y) e dimensões (largura, altura)
+      imageLabel.setBounds(50, 10, 150, 100); // Posição (x, y) e dimensões (largura, altura)
 
       imageLabel.addMouseListener(new MouseAdapter() 
         {

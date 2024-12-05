@@ -90,7 +90,7 @@ public class ConfiProf implements ActionListener{
       JLabel imageLabel = new JLabel(new ImageIcon(voltar));
       imageLabel.setBounds(30, 5, 200, 100); // Posição (x, y) e dimensões (largura, altura)
 
-      imageLabel.addMouseListener(new MouseAdapter() 
+      imageLabel.addMouseListener(new MouseAdapter()
         {
             public void mouseClicked(MouseEvent e) 
             {
@@ -131,6 +131,8 @@ public class ConfiProf implements ActionListener{
 
                     this.professor = professorController.atualizar(new Professor(professor.getId(), nomep.getText(), emailp.getText(), CriptografarSenha.criptografarSenha(senhap.getText()), 1, especialidadesList ));
                     JOptionPane.showMessageDialog(null, "dados atalizados com sucesso!");
+                    frame.dispose();
+                    new HomeProf(professor);
                 }else {
                     JOptionPane.showMessageDialog(null,"é necessario separar as especialidades por ,");
                 }

@@ -41,7 +41,6 @@ public class AtualizarExcluirTreino implements ActionListener {
 
         TreinoController treinoController = new TreinoController();
         Treino treinoBuscado = treinoController.buscar(idTreino);
-        System.out.println(treinoBuscado);
         if (treinoBuscado == null) {
             JOptionPane.showMessageDialog(frame,"Treino não encontrado");
             frame.dispose();

@@ -74,7 +74,7 @@ public class RegistroTreinoProf implements ActionListener {
 
 
     // Ajustando a imagem de fundo
-    ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreinoProfessor.jpg");  //caminho da imagem
+    ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreino.png");  //caminho da imagem
     Image imagem = imagemFundo.getImage();
     Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
     imagemFundo = new ImageIcon(imagemRedimensionada);
@@ -145,6 +145,7 @@ public class RegistroTreinoProf implements ActionListener {
          TreinoController treinoController = new TreinoController();
          treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
          JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+         frame.dispose();
          new HomeProf(professor);
 
      }

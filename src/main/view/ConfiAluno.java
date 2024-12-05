@@ -29,7 +29,6 @@ public class ConfiAluno implements ActionListener {
 
     public ConfiAluno(Aluno aluno) {
         this.aluno = aluno;
-        System.out.println(aluno.getIdade());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 800);  
         frame.setLocationRelativeTo(null);
@@ -114,7 +113,6 @@ public class ConfiAluno implements ActionListener {
             public void mouseClicked(MouseEvent e) 
             {
                 frame.dispose();
-                System.out.println(aluno);
                 new HomeAluno(aluno);
             }
         });
@@ -138,6 +136,8 @@ public class ConfiAluno implements ActionListener {
 
                 this.aluno = alunoController.atualizar(new Aluno(aluno.getId(), nome.getText(), email.getText(), CriptografarSenha.criptografarSenha(senha.getText()), 2, Integer.parseInt(idade.getText()), genero.getText(), Double.parseDouble(peso.getText())));
                 JOptionPane.showMessageDialog(null, "dados atalizados com sucesso!");
+                frame.dispose();
+                new HomeAluno(aluno);
             }else {
                 JOptionPane.showMessageDialog(frame, "Digite sua senha");
             }

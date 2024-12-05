@@ -50,8 +50,6 @@ public class TreinosAluno implements ActionListener {
          AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
          ArrayList<Treino> treinos =  alunoTreinoController.listarTreinosPorAluno(aluno.getId());
 
-         System.out.println("treinos: " + treinos);
-
          int yPosition = 400; // Posição inicial dos botões
          for (Treino treino : treinos) {
              JButton button = new JButton(treino.getNomeTreino());

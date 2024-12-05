@@ -29,9 +29,7 @@ public MetasAluno(Aluno aluno){
     frame.setResizable(false);
     // Layout nulo para posicionamento manual
     frame.setLayout(null);
-    System.out.println(aluno.getPesoMeta());
     String meta = (aluno.getPesoMeta() != 0 ? ""+aluno.getPesoMeta() : "");
-    System.out.println("a"+meta);
     //definindo JTextField
     metaAtual = new JTextField("Peso Atual: "+aluno.getPeso()+"| MDP:"+meta);
     metaAtual.setBounds(256, 400, 471, 71);  

@@ -67,7 +67,6 @@ public class AlunoTreinoDao {
             stmt.setString(1, idAluno);
             rs = stmt.executeQuery();
                      while (rs.next()) {
-                    System.out.println(  rs.getString("nome"));
                     Treino treino = new Treino(
                             rs.getString("idTreino"),
                             rs.getString("nome"),
