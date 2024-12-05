@@ -8,6 +8,11 @@ import main.model.Professor;
 import main.model.Treino;
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +20,6 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class InscricaoAluno implements ActionListener {
-    private JButton voltarhome;
     private JButton inscricao;
     private JTextArea instrucoes;
     private JTextArea objetivo;
@@ -36,8 +40,6 @@ public class InscricaoAluno implements ActionListener {
         frame.setLayout(null);
 
          //definindo botão
-    voltarhome = new JButton("<");
-    voltarhome.setBounds(10,30,50,40);  // Posição e tamanho do botão 
     inscricao = new JButton("Increver-se");
     inscricao.setBounds(500,710,326,46);
     //jlabel
@@ -46,13 +48,6 @@ public class InscricaoAluno implements ActionListener {
     especialidadeTreinos.setBounds(460, 30, 500, 30);
     especialidadeTreinos.setFont(new Font("Arial", Font.BOLD, 34));
     especialidadeTreinos.setForeground(new Color(50, 234, 216));
-
-    //add botão
-    frame.add(voltarhome);
-    frame.add(inscricao);
-
-    voltarhome.addActionListener(this);
-    inscricao.addActionListener(this);
 
 
 
@@ -65,12 +60,8 @@ public class InscricaoAluno implements ActionListener {
     treino = new JTextArea("Treino:");  
     treino.setBounds(700, 99, 500, 600); 
     
-    frame.add(objetivo);
-    frame.add(instrucoes);
-    frame.add(treino);
-    frame.add(especialidadeTreinos);
     // Ajustando a imagem de fundo
-   ImageIcon imagemFundo = new ImageIcon("src/main/view/img/InscricaoAluno.png");  //caminho da imagem
+   ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreino.png");  //caminho da imagem
    Image imagem = imagemFundo.getImage();
    Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
    imagemFundo = new ImageIcon(imagemRedimensionada);
@@ -78,18 +69,40 @@ public class InscricaoAluno implements ActionListener {
 // Definir a imagem de fundo no frame
    JLabel fundo = new JLabel(imagemFundo);
    fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
-   frame.add(fundo);
-   frame.setVisible(true);
 
+   //Criando o método voltar
+      ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+      Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
 
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(90, 10, 150, 100); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+                frame.dispose();
+                new HomeAluno(aluno);
+            }
+        });
+
+        inscricao.addActionListener(this);
+
+        frame.add(inscricao);
+        frame.add(objetivo);
+        frame.add(instrucoes);
+        frame.add(treino);
+        frame.add(especialidadeTreinos);
+
+        frame.add(imageLabel);
+        frame.add(fundo);
+
+        frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == voltarhome) {
-            frame.dispose();
-            new HomeAluno(aluno);
-        }
         if (e.getSource() == inscricao) {
             AlunoTreinoController alunoTreinoController = new AlunoTreinoController();
 

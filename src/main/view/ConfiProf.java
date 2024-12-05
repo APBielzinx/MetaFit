@@ -7,6 +7,11 @@ import main.model.Aluno;
 import main.model.Professor;
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +20,6 @@ import java.util.Arrays;
 
 public class ConfiProf implements ActionListener{
     private JButton botaoAlterarp;
-    private JButton voltarhomep;
     private JButton excluirContap;
     private JTextField nomep;
     private JTextField especialidade;
@@ -60,15 +64,11 @@ public class ConfiProf implements ActionListener{
     botaoAlterarp = new JButton("Alterar");
     botaoAlterarp.setBounds(434, 612, 398, 48);
 
-    voltarhomep = new JButton("<");
-    voltarhomep.setBounds(30, 100, 50, 40);
-
     excluirContap = new JButton("Excluir conta");
     excluirContap.setBounds(434, 670, 398, 48);
 
     //add botões
     frame.add(botaoAlterarp);
-    frame.add(voltarhomep);
     frame.add(excluirContap);
 
 
@@ -81,27 +81,37 @@ public class ConfiProf implements ActionListener{
      // Definir a imagem de fundo no frame
      JLabel fundo = new JLabel(imagemFundo);
      fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
-     frame.add(fundo);
 
-    voltarhomep.addActionListener(this);
+     //Definir voltar
+     ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+     Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(30, 5, 200, 100); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+                frame.dispose();
+                new HomeProf(professor);
+            }
+        });
+
     botaoAlterarp.addActionListener(this);
     excluirContap.addActionListener(this);
 
  
-     
+    frame.add(imageLabel);
+    frame.add(fundo);
      
       // Exibir o frame
     frame.setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == voltarhomep)
-        {
-            frame.dispose();
-            new HomeProf(professor);
-        }
         if (e.getSource() == excluirContap){
             ProfessorController professorController= new ProfessorController();
             professorController.excluir(professor.getId());

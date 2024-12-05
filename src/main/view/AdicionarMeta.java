@@ -8,10 +8,12 @@ import main.model.Aluno;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
 
 public class AdicionarMeta implements ActionListener
 {
-  private JButton voltarhome;
   private JButton registrar;
   private JTextField pesoAtual;
   private JTextField pesoMeta;
@@ -39,13 +41,10 @@ public class AdicionarMeta implements ActionListener
       frame.add(pesoMeta);
   
       //definindo botões
-      voltarhome = new JButton("<");
-      voltarhome.setBounds(90, 130, 50, 40);
   
       registrar = new JButton("Registrar");
       registrar.setBounds(500, 608, 392, 61);
       
-      frame.add(voltarhome);
       frame.add(registrar);
   
        // Ajustando a imagem de fundo
@@ -57,14 +56,29 @@ public class AdicionarMeta implements ActionListener
       // Definir a imagem de fundo no frame
       JLabel fundo = new JLabel(imagemFundo);
       fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
-      frame.add(fundo);
+      
+      //Criando o método voltar
+      ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+      Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(90, 130, 50, 40); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+              frame.dispose();
+              new HomeAluno(aluno);
+            }
+        });
   
       //Definindo os botões
-      voltarhome.addActionListener(this);
-  
       registrar.addActionListener(this);
-  
    
+      frame.add(imageLabel);
+      frame.add(fundo);
       // Exibir o frame
       frame.setVisible(true);
     }
@@ -72,12 +86,7 @@ public class AdicionarMeta implements ActionListener
 
     public void actionPerformed(ActionEvent e) 
     {
-      if(e.getSource() == voltarhome)
-      {
-        frame.dispose();
-        new HomeAluno(aluno);
-      }
-      else if(e.getSource() == registrar)
+      if(e.getSource() == registrar)
       {
         JOptionPane.showMessageDialog(null, "Registrado");
         //Adicionar função necessária

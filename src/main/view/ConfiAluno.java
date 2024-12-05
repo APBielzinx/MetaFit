@@ -6,13 +6,17 @@ import main.controller.utils.CriptografarSenha;
 import main.model.Aluno;
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ConfiAluno implements ActionListener {
     private JButton botaoAlterar;
-    private JButton voltarhome;
     private JButton excluirConta;
     private JTextField nome;
     private JTextField idade;
@@ -75,19 +79,14 @@ public class ConfiAluno implements ActionListener {
     botaoAlterar = new JButton("Alterar");
     botaoAlterar.setBounds(434, 612, 398, 48);
 
-    voltarhome = new JButton("<");
-    voltarhome.setBounds(30, 100, 50, 40);
-
     excluirConta = new JButton("Excluir conta");
     excluirConta.setBounds(434, 670, 398, 48);
 
     //add botões
     frame.add(botaoAlterar);
-    frame.add(voltarhome);
     frame.add(excluirConta);
 
     botaoAlterar.addActionListener(this);
-    voltarhome.addActionListener(this);
     excluirConta.addActionListener(this);
 
 
@@ -100,9 +99,28 @@ public class ConfiAluno implements ActionListener {
      // Definir a imagem de fundo no frame
      JLabel fundo = new JLabel(imagemFundo);
      fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
-     frame.add(fundo);
- 
      
+
+     //Criando o método voltar
+      ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+      Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(90, 10, 150, 100); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+                frame.dispose();
+                System.out.println(aluno);
+                new HomeAluno(aluno);
+            }
+        });
+ 
+        frame.add(imageLabel);
+        frame.add(fundo);
      
       // Exibir o frame
     frame.setVisible(true);
@@ -131,13 +149,5 @@ public class ConfiAluno implements ActionListener {
             frame.dispose();
             new TelaLoginCadastro();
         }
-
-
-        if (e.getSource() == voltarhome) {
-            frame.dispose();
-            System.out.println(aluno);
-            new HomeAluno(aluno);
-        }
-
     }
 }

@@ -78,10 +78,6 @@ public class TelaCadAluno implements ActionListener {
      senha.setEchoChar((char) 0);
      setupPasswordPlaceholder(senha, "Crie uma senha");
 
-
-
-
-
     // add ao frame
     frame.add(nome);
     frame.add(idade);

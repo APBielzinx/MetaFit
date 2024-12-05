@@ -7,6 +7,13 @@ import main.model.Treino;
 
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +22,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class AtualizarExcluirTreino implements ActionListener {
-    private JButton voltarhomep, btnAtualizar, btnExcluir;
+    private JButton btnAtualizar, btnExcluir;
     private JTextArea instrucoes;
     private JTextArea objetivo;
     private JTextArea treino;
@@ -49,10 +56,6 @@ public class AtualizarExcluirTreino implements ActionListener {
         frame.setLayout(null);
 
         //definindo botões
-        voltarhomep = new JButton("<");
-        voltarhomep.setBounds(10, 30, 50, 40);
-        frame.add(voltarhomep);
-
         btnAtualizar = new JButton("Atualizar");
         btnAtualizar.setBounds(200, 710, 326, 46);
         frame.add(btnAtualizar);
@@ -92,14 +95,12 @@ public class AtualizarExcluirTreino implements ActionListener {
         especialidadeTreinos.setBounds(460, 30, 500, 30);  // Ajustar a posição e o tamanho
         frame.add(especialidadeTreinos);
 
-
-        voltarhomep.addActionListener(this);
         btnAtualizar.addActionListener(this);
         btnExcluir.addActionListener(this);
 
 
         // Ajustando a imagem de fundo
-        ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreinoProfessor.jpg");  //caminho da imagem
+        ImageIcon imagemFundo = new ImageIcon("src/main/view/img/RegistroTreino.png");  //caminho da imagem
         Image imagem = imagemFundo.getImage();
         Image imagemRedimensionada = imagem.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         imagemFundo = new ImageIcon(imagemRedimensionada);
@@ -107,27 +108,41 @@ public class AtualizarExcluirTreino implements ActionListener {
         // Definir a imagem de fundo no frame
         JLabel fundo = new JLabel(imagemFundo);
         fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
-        frame.add(fundo);
 
-        frame.addWindowFocusListener(new java.awt.event.WindowAdapter()
+        //Criando o método voltar
+      ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+      Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(50, 10, 150, 100); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
         {
-            public void windowGainedFocus(java.awt.event.WindowEvent e)
+            public void mouseClicked(MouseEvent e) 
+            {
+                frame.dispose();
+                new HomeProf(professor);
+            }
+        });
+
+        frame.addWindowFocusListener(new WindowAdapter()
+        {
+            public void windowGainedFocus(WindowEvent e)
             {
                 frame.getContentPane().requestFocusInWindow();
             }
         });
 
+        frame.add(imageLabel);
+        frame.add(fundo);
+
         // Exibir o frame
         frame.setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-     if (e.getSource() == voltarhomep) {
-         frame.dispose();
-         new HomeProf(professor);
-     }
      if (e.getSource() == btnAtualizar) {
          TreinoController treinoController = new TreinoController();
          treinoController.atualizar(new Treino(idTreino, txtNome.getText(), instrucoes.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(),treino.getText()));

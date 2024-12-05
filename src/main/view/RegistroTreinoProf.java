@@ -5,6 +5,11 @@ import main.model.Professor;
 import main.model.Treino;
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.awt.event.MouseAdapter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +19,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class RegistroTreinoProf implements ActionListener {
-    private JButton voltarhomep;
     private JButton registrarT;
     private JTextArea instrucoes;
     private JTextArea objetivo;
@@ -34,10 +38,6 @@ public class RegistroTreinoProf implements ActionListener {
     frame.setLayout(null);
 
     //definindo botões
-    voltarhomep = new JButton("<");
-    voltarhomep.setBounds(10, 30, 50, 40);
-    frame.add(voltarhomep);
-    
     registrarT = new JButton("Registrar");
     registrarT.setBounds(500, 710, 326, 46);
     frame.add(registrarT);
@@ -70,8 +70,6 @@ public class RegistroTreinoProf implements ActionListener {
     especialidadeTreinos.setBounds(460, 30, 500, 30);  // Ajustar a posição e o tamanho
     frame.add(especialidadeTreinos);
 
-
-    voltarhomep.addActionListener(this);
     registrarT.addActionListener(this);
 
 
@@ -84,6 +82,25 @@ public class RegistroTreinoProf implements ActionListener {
     // Definir a imagem de fundo no frame
     JLabel fundo = new JLabel(imagemFundo);
     fundo.setBounds(0, 0, frame.getWidth(), frame.getHeight());  // Faz a imagem ocupar toda a janela
+
+    //Criando o método voltar
+      ImageIcon voltarIcon = new ImageIcon("src/main/view/img/VOLTAR.png");
+      Image voltar = voltarIcon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+
+      // Criar um JLabel com a imagem
+      JLabel imageLabel = new JLabel(new ImageIcon(voltar));
+      imageLabel.setBounds(90, 130, 50, 40); // Posição (x, y) e dimensões (largura, altura)
+
+      imageLabel.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+                frame.dispose();
+                new HomeProf(professor);
+            }
+        });
+    
+    frame.add(imageLabel);
     frame.add(fundo);
 
     frame.addWindowFocusListener(new java.awt.event.WindowAdapter() 
@@ -123,15 +140,12 @@ public class RegistroTreinoProf implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-     if (e.getSource() == voltarhomep) {
-         frame.dispose();
-         new HomeProf(professor);
-     }
      if (e.getSource() == registrarT) {
 
          TreinoController treinoController = new TreinoController();
          treinoController.cadastrar(new Treino(nomeTreino,objetivo.getText(), Collections.singletonList(Objects.requireNonNull(especialidadeTreinos.getSelectedItem()).toString()),professor.getId(), instrucoes.getText()));
          JOptionPane.showMessageDialog(frame,"Treino cadastrado com sucesso");
+         new HomeProf(professor);
 
      }
     }
